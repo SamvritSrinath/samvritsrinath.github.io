@@ -1,0 +1,214 @@
+/* Reset and Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* Apply Roboto font */
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#root {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block; /* Prevents bottom space */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0.75rem;
+  color: var(--heading-color);
+  font-weight: 500; /* Slightly bolder headings */
+}
+
+/* Theme Variables */
+:root {
+  /* Define colors for both themes first */
+  --blue-primary: #5e5ce6; /* A nice vibrant blue */
+  --blue-dark: #4b4acf;
+  --blue-light: #aeaefb;
+  --purple-primary: #bf5af2; /* A complementary purple */
+  --purple-dark: #a74fe0;
+  --purple-light: #e5bfff;
+
+  --grey-dark-1: #1c1c1e; /* Main dark background */
+  --grey-dark-2: #2c2c2e; /* Slightly lighter dark (cards/nav) */
+  --grey-dark-3: #3a3a3c; /* Borders / Subtle elements */
+  --grey-light-1: #ffffff; /* Light theme background */
+  --grey-light-2: #f2f2f7; /* Light theme cards/nav */
+  --grey-light-3: #e5e5ea; /* Light theme borders */
+
+  --text-light: #f2f2f7; /* Text on dark background */
+  --text-light-secondary: #aeaeb2; /* Dimmer text on dark */
+  --text-dark: #1c1c1e; /* Text on light background */
+  --text-dark-secondary: #636366; /* Dimmer text on light */
+
+  /* Default to Dark Mode Variables */
+  --primary-color: var(--blue-primary);
+  --primary-dark: var(--blue-dark);
+  --primary-light: var(--blue-light);
+  --secondary-color: var(--purple-primary);
+  --secondary-dark: var(--purple-dark);
+  --secondary-light: var(--purple-light);
+
+  --bg-color: var(--grey-dark-1);
+  --card-bg: var(--grey-dark-2);
+  --nav-bg: var(--grey-dark-2);
+  --footer-bg: var(--grey-dark-2);
+  --border-color: var(--grey-dark-3);
+  --heading-color: var(--text-light);
+  --text-color: var(--text-light);
+  --text-secondary: var(--text-light-secondary);
+  --nav-text: var(--text-light);
+  --footer-text: var(--text-light-secondary);
+  --link-color: var(--blue-light);
+  --link-hover-color: var(--grey-light-1);
+  --tag-bg: var(--grey-dark-3);
+  --tag-text: var(--text-light-secondary);
+  --button-text-color: var(--grey-dark-1); /* Text on primary button */
+}
+
+body.light {
+  --primary-color: var(--blue-primary);
+  --primary-dark: var(--blue-dark);
+  --primary-light: var(--blue-light);
+  --secondary-color: var(--purple-primary);
+  --secondary-dark: var(--purple-dark);
+  --secondary-light: var(--purple-light);
+
+  --bg-color: var(--grey-light-1);
+  --card-bg: var(--grey-light-2);
+  --nav-bg: var(--grey-light-2);
+  --footer-bg: var(--grey-light-2);
+  --border-color: var(--grey-light-3);
+  --heading-color: var(--text-dark);
+  --text-color: var(--text-dark);
+  --text-secondary: var(--text-dark-secondary);
+  --nav-text: var(--text-dark);
+  --footer-text: var(--text-dark-secondary);
+  --link-color: var(--blue-primary);
+  --link-hover-color: var(--blue-dark);
+  --tag-bg: var(--grey-light-3);
+  --tag-text: var(--text-dark-secondary);
+  --button-text-color: var(--grey-light-1); /* Text on primary button */
+}
+
+/* Apply base background and text color */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Utility class for page content padding */
+.page-container {
+  padding: 2rem 1rem;
+  flex-grow: 1;
+  max-width: 1100px; /* Optional: Constrain content width */
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+/* Base Card Style */
+.card-base {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Base Tag Style */
+.tag-base {
+  display: inline-block;
+  background-color: var(--tag-bg);
+  color: var(--tag-text);
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  margin: 0.2rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Base Button Style */
+.button-base {
+  display: inline-block;
+  padding: 0.8rem 1.8rem;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  cursor: pointer;
+  border: 2px solid transparent; /* Start with transparent border */
+  text-align: center;
+}
+
+.button-primary {
+  background-color: var(--primary-color);
+  color: var(--button-text-color);
+  border-color: var(--primary-color);
+}
+.button-primary:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.button-secondary {
+  background-color: transparent;
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.button-secondary:hover {
+  background-color: var(--primary-light);
+  color: var(--primary-dark); /* Adjust text color for light background */
+  border-color: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 1.5rem 0.5rem;
+  }
+  h1 {
+    font-size: 1.8rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+}

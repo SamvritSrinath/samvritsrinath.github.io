@@ -1,0 +1,54 @@
+.project-card {
+  /* Inherit from .card-base */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add hover effect */
+}
+
+.project-card:hover {
+  transform: translateY(-5px); /* Lift card on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhance shadow */
+}
+
+.project-card h3 {
+  margin-bottom: 0.75rem;
+  color: var(--primary-light); /* Use light blue/purple for title */
+  font-size: 1.3rem;
+}
+
+.project-card p {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.project-tech {
+  margin: 1rem 0;
+  display: flex; /* Use flexbox for tags */
+  flex-wrap: wrap; /* Allow tags to wrap */
+  gap: 0.5rem; /* Space between tags */
+}
+
+.tech-tag {
+  /* Inherit from .tag-base */
+  background-color: var(--secondary-dark); /* Use purple for tags */
+  color: var(--text-light);
+}
+
+.project-links {
+  margin-top: 1.5rem;
+}
+
+.project-links a {
+  margin-right: 1rem;
+  color: var(--link-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+.project-links a:last-child {
+  margin-right: 0;
+}
+
+.project-links a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}

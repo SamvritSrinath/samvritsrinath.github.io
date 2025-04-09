@@ -1,0 +1,102 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--nav-bg);
+  color: var(--nav-text);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky; /* Make navbar sticky */
+  top: 0;
+  z-index: 1000; /* Ensure it's above other content */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.navbar-brand a {
+  font-weight: bold;
+  text-decoration: none;
+  color: inherit;
+  font-size: 1.3rem;
+}
+.navbar-brand a:hover {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-links a {
+  margin-left: 1.5rem;
+  text-decoration: none;
+  color: var(--text-secondary); /* Slightly dimmer for non-active */
+  font-weight: 500;
+  transition: color 0.2s ease;
+  padding-bottom: 0.2rem; /* Space for potential underline */
+  border-bottom: 2px solid transparent; /* Placeholder for active state */
+}
+
+.navbar-links a:hover {
+  color: var(--link-hover-color);
+  text-decoration: none; /* Remove underline on hover */
+}
+
+.navbar-links a.active {
+  font-weight: 700;
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color); /* Underline for active link */
+}
+
+.navbar-toggle {
+  margin-left: 1.5rem; /* Space between links and toggle */
+}
+
+.theme-toggle-button {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: var(--nav-text);
+  display: flex;
+  align-items: center;
+  padding: 0.3rem; /* Easier click target */
+  border-radius: 50%;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.theme-toggle-button:hover {
+  color: var(--primary-color);
+  background-color: rgba(128, 128, 128, 0.1); /* Subtle hover background */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+  .navbar-brand {
+    margin-bottom: 0.5rem; /* Space below brand on mobile */
+  }
+  .navbar-links {
+    margin-top: 0.5rem;
+    margin-left: 0;
+    width: 100%; /* Take full width */
+    flex-direction: column; /* Stack links vertically */
+    align-items: flex-start; /* Align links left */
+    gap: 0.8rem; /* Space between stacked links */
+  }
+  .navbar-links a {
+    margin-left: 0;
+    padding: 0.5rem 0; /* Larger click area */
+  }
+  .navbar-toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    margin-left: 0;
+  }
+}

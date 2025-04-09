@@ -1,0 +1,56 @@
+.hero-section {
+  text-align: center;
+  padding: clamp(3rem, 10vh, 6rem) 1rem; /* Responsive padding */
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  display: flex; /* Use flex for centering */
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+  justify-content: center; /* Center content vertically */
+  min-height: 70vh; /* Give it some height */
+}
+
+.hero-profile-pic {
+  width: clamp(120px, 25vw, 180px); /* Responsive size */
+  height: clamp(120px, 25vw, 180px);
+  border-radius: 50%; /* Circular border */
+  object-fit: cover; /* Ensure image covers the area well */
+  margin-bottom: 1.5rem;
+  border: 6px solid var(--primary-color); /* Use primary color for border */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow */
+  background-color: var(--grey-dark-3); /* BG for placeholder */
+}
+
+.hero-content h1 {
+  font-size: clamp(2.2rem, 6vw, 3.5rem); /* Responsive font size */
+  margin-bottom: 0.5rem;
+  color: var(--heading-color);
+  font-weight: 700; /* Bolder heading */
+}
+
+.hero-subtitle {
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  font-weight: 300; /* Lighter subtitle */
+}
+
+.hero-content > p {
+  max-width: 650px; /* Slightly wider text */
+  margin: 0 auto 2rem auto;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.hero-cta {
+  margin-top: 1rem;
+  display: flex; /* Align buttons */
+  flex-wrap: wrap; /* Allow wrapping on small screens */
+  justify-content: center; /* Center buttons */
+  gap: 1rem; /* Space between buttons */
+}
+
+/* Use base button classes defined in index.css */
+.hero-cta .cta-button {
+  /* Inherits from .button-base, .button-primary, .button-secondary */
+}

@@ -1,0 +1,17 @@
+/* index.css */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family-base); /* Use the CSS variable */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  height: 100%; /* Make sure the root element takes up the whole screen */
+}
+
+html {
+  scroll-behavior: smooth; /* Enable smooth scrolling */
+}

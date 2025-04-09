@@ -1,0 +1,15 @@
+/*
+      * A very simple reset that sets a more sane default box-sizing and removes
+      * all margins and padding.
+      */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}

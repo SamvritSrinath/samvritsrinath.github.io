@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import Timeline from '../components/Timeline';
@@ -97,6 +97,19 @@ const About = ({ content }) => {
       </Section>
     </AboutContainer>
   );
+};
+
+About.propTypes = {
+  content: PropTypes.shape({
+    education: PropTypes.shape({
+      university: PropTypes.string.isRequired,
+      degree: PropTypes.string.isRequired,
+      duration: PropTypes.string.isRequired,
+      details: PropTypes.string.isRequired,
+      courses: PropTypes.arrayOf(PropTypes.string).isRequired,
+    }).isRequired,
+    experience: PropTypes.array.isRequired,
+  }).isRequired,
 };
 
 export default About;

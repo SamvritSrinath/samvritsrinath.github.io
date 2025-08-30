@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 const Canvas = styled.canvas`
@@ -7,8 +7,7 @@ const Canvas = styled.canvas`
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
-  background-color: ${({ theme }) => theme.body};
+  z-index: -2;
 `;
 
 const StarfieldBackground = () => {
@@ -21,7 +20,6 @@ const StarfieldBackground = () => {
 
     let stars = [];
     const numStars = 300;
-    const speed = 0.5;
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
@@ -31,29 +29,31 @@ const StarfieldBackground = () => {
         stars.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          radius: Math.random() * 1.5,
-          alpha: Math.random(),
-          speed: Math.random() * speed + 0.1,
+          z: Math.random() * canvas.width,
         });
       }
     };
 
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+      
       stars.forEach(star => {
+        const x = (star.x - canvas.width / 2) * (canvas.width / star.z) + canvas.width / 2;
+        const y = (star.y - canvas.height / 2) * (canvas.width / star.z) + canvas.height / 2;
+        const r = 2.5 * (canvas.width / star.z);
+        
         ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
-        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+        ctx.arc(x, y, r, 0, Math.PI * 2);
         ctx.fill();
       });
     };
 
     const update = () => {
       stars.forEach(star => {
-        star.y -= star.speed;
-        if (star.y < 0) {
-          star.y = canvas.height;
-          star.x = Math.random() * canvas.width;
+        star.z -= 1;
+        if (star.z <= 0) {
+          star.z = canvas.width;
         }
       });
     };

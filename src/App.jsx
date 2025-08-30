@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme } from './styles/theme';
 import { useTheme } from './hooks/useTheme';
@@ -49,7 +49,7 @@ function App() {
           <Projects content={resumeData.projects} />
         </section>
         <section id="contact">
-          <Contact content={resumeData.main.contact} />
+          <Contact content={resumeData.main.contact} theme={selectedTheme} />
         </section>
       </MainLayout>
     </ThemeProvider>

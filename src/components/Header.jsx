@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-scroll';
 import { FaSun, FaMoon } from 'react-icons/fa';
@@ -117,6 +117,11 @@ const Header = ({ theme, toggleTheme }) => {
       </ThemeToggleButton>
     </HeaderContainer>
   );
+};
+
+Header.propTypes = {
+  theme: PropTypes.string.isRequired,
+  toggleTheme: PropTypes.func.isRequired,
 };
 
 export default Header;

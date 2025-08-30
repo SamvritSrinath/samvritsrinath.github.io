@@ -1,6 +1,5 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
 import { FaGithub } from 'react-icons/fa';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
@@ -127,6 +126,18 @@ const Projects = ({ content }) => {
       </Swiper>
     </ProjectsContainer>
   );
+};
+
+Projects.propTypes = {
+  content: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      image: PropTypes.string.isRequired,
+      technologies: PropTypes.arrayOf(PropTypes.string).isRequired,
+      link: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default Projects;

@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
@@ -84,7 +85,7 @@ const SocialIcon = styled.a`
   }
 `;
 
-const Contact = ({ content }) => {
+const Contact = ({ content, theme }) => {
   const form = useRef();
   const [modalInfo, setModalInfo] = useState({ show: false, title: '', message: '' });
   const { linkedin, github } = content;
@@ -121,14 +122,14 @@ const Contact = ({ content }) => {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
           <SectionTitle>Get In Touch</SectionTitle>
           <Subtitle>
-            Have a question or want to work together? Leave your details and I'll get back to you as soon as possible.
+            Have a question or want to work together? Leave your details and I&apos;ll get back to you as soon as possible.
           </Subtitle>
         </motion.div>
 
         <Form ref={form} onSubmit={sendEmail} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
-          <Input type="text" name="user_name" placeholder="Your Name" required />
-          <Input type="email" name="user_email" placeholder="Your Email" required />
-          <TextArea name="message" placeholder="Your Message" required />
+          <Input type="text" name="user_name" placeholder="Your Name" required theme={theme} />
+          <Input type="email" name="user_email" placeholder="Your Email" required theme={theme} />
+          <TextArea name="message" placeholder="Your Message" required theme={theme} />
           <SubmitButton type="submit">Send Message</SubmitButton>
         </Form>
 
@@ -139,6 +140,14 @@ const Contact = ({ content }) => {
       </ContactContainer>
     </>
   );
+};
+
+Contact.propTypes = {
+  content: PropTypes.shape({
+    linkedin: PropTypes.string.isRequired,
+    github: PropTypes.string.isRequired,
+  }).isRequired,
+  theme: PropTypes.object.isRequired,
 };
 
 export default Contact;

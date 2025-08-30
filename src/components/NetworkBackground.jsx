@@ -1,4 +1,5 @@
-import React, { useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 const Canvas = styled.canvas`
@@ -92,6 +93,10 @@ const NetworkBackground = ({ theme }) => {
   }, [theme]); // Rerun effect if theme changes
 
   return <Canvas ref={canvasRef} />;
+};
+
+NetworkBackground.propTypes = {
+  theme: PropTypes.object.isRequired,
 };
 
 export default NetworkBackground;

@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Typewriter } from 'react-simple-typewriter';
@@ -149,6 +149,13 @@ const Home = ({ content }) => {
       </TextContent>
     </HeroContainer>
   );
+};
+
+Home.propTypes = {
+  content: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    bio: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Home;

@@ -1,4 +1,4 @@
-import React from 'react';
+
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
@@ -52,7 +52,7 @@ const SkillName = styled.p`
   }
 `;
 
-const Skills = ({ skills }) => {
+const Skills = () => {
   const skillVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },

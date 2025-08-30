@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
@@ -152,6 +152,18 @@ const Timeline = ({ experience }) => {
       ))}
     </TimelineContainer>
   );
+};
+
+Timeline.propTypes = {
+  experience: PropTypes.arrayOf(
+    PropTypes.shape({
+      role: PropTypes.string.isRequired,
+      company: PropTypes.string.isRequired,
+      duration: PropTypes.string.isRequired,
+      description: PropTypes.arrayOf(PropTypes.string).isRequired,
+      technologies: PropTypes.arrayOf(PropTypes.string).isRequired,
+    })
+  ).isRequired,
 };
 
 export default Timeline;

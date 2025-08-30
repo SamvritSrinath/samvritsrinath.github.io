@@ -2,11 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FaGithub } from 'react-icons/fa';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 const ProjectsContainer = styled.div`
   padding: 4rem 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  background: ${({ theme }) => theme.cardBg};
 `;
 
 const SectionTitle = styled.h2`
@@ -16,25 +20,27 @@ const SectionTitle = styled.h2`
   text-align: center;
 `;
 
-const ProjectsGrid = styled(motion.div)`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
-`;
-
-const ProjectCard = styled(motion.div)`
-  background: ${({ theme }) => theme.cardBg};
+const ProjectCard = styled.div`
+  background: ${({ theme }) => theme.body};
   border-radius: 12px;
-  padding: 2rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  height: 100%;
+`;
 
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  }
+const ProjectImage = styled.img`
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+`;
+
+const CardContent = styled.div`
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 `;
 
 const ProjectTitle = styled.h3`
@@ -59,7 +65,7 @@ const TechList = styled.ul`
 `;
 
 const TechItem = styled.li`
-  background: ${({ theme }) => theme.body};
+  background: ${({ theme }) => theme.cardBg};
   padding: 0.5rem 1rem;
   border-radius: 6px;
   font-size: 0.85rem;
@@ -80,50 +86,45 @@ const ProjectLink = styled.a`
 `;
 
 const Projects = ({ content }) => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  };
-
   return (
     <ProjectsContainer>
-      <SectionTitle>Projects</SectionTitle>
-      <ProjectsGrid
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
+      <SectionTitle>My Work</SectionTitle>
+      <Swiper
+        modules={[Navigation, Pagination, Autoplay]}
+        spaceBetween={30}
+        slidesPerView={1}
+        navigation
+        pagination={{ clickable: true }}
+        autoplay={{ delay: 5000, disableOnInteraction: false }}
+        breakpoints={{
+          768: {
+            slidesPerView: 2,
+          },
+          1024: {
+            slidesPerView: 3,
+          },
+        }}
       >
         {content.map((project, index) => (
-          <ProjectCard key={index} variants={itemVariants}>
-            <ProjectTitle>{project.title}</ProjectTitle>
-            <ProjectDescription>{project.description}</ProjectDescription>
-            <TechList>
-              {project.technologies.map((tech, i) => (
-                <TechItem key={i}>{tech}</TechItem>
-              ))}
-            </TechList>
-            <ProjectLink href={project.link} target="_blank" rel="noopener noreferrer">
-              <FaGithub /> View on GitHub
-            </ProjectLink>
-          </ProjectCard>
+          <SwiperSlide key={index}>
+            <ProjectCard>
+              <ProjectImage src={project.image} alt={`${project.title} screenshot`} />
+              <CardContent>
+                <ProjectTitle>{project.title}</ProjectTitle>
+                <ProjectDescription>{project.description}</ProjectDescription>
+                <TechList>
+                  {project.technologies.map((tech, i) => (
+                    <TechItem key={i}>{tech}</TechItem>
+                  ))}
+                </TechList>
+                <ProjectLink href={project.link} target="_blank" rel="noopener noreferrer">
+                  <FaGithub /> View on GitHub
+                </ProjectLink>
+              </CardContent>
+            </ProjectCard>
+          </SwiperSlide>
         ))}
-      </ProjectsGrid>
+      </Swiper>
     </ProjectsContainer>
   );
 };

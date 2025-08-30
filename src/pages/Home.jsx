@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { Typewriter } from 'react-simple-typewriter';
 import profilePic from '../assets/profile.png';
 
 const HeroContainer = styled.section`
@@ -8,27 +9,33 @@ const HeroContainer = styled.section`
   align-items: center;
   justify-content: center;
   padding: 6rem 2rem;
-  min-height: 80vh;
-  text-align: center;
+  min-height: 100vh;
+  gap: 4rem;
 
   @media (max-width: 768px) {
     flex-direction: column;
+    text-align: center;
     padding: 4rem 1rem;
+    gap: 2rem;
+    min-height: 80vh;
   }
 `;
 
-const ContentWrapper = styled.div`
-  max-width: 800px;
+const ProfileImageContainer = styled(motion.div)`
+  flex-shrink: 0;
 `;
 
-const ProfileImage = styled(motion.img)`
-  width: 180px;
-  height: 180px;
+const ProfileImage = styled.img`
+  width: 220px;
+  height: 220px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 2rem;
-  border: 4px solid ${({ theme }) => theme.accent};
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 5px solid ${({ theme }) => theme.accent};
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+`;
+
+const TextContent = styled.div`
+  max-width: 600px;
 `;
 
 const Name = styled(motion.h1)`
@@ -38,7 +45,7 @@ const Name = styled(motion.h1)`
   color: ${({ theme }) => theme.text};
 
   @media (max-width: 768px) {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
   }
 `;
 
@@ -48,44 +55,56 @@ const Title = styled(motion.h2)`
   color: ${({ theme }) => theme.accent};
   margin: 0.5rem 0 1.5rem;
   font-family: 'Roboto Mono', monospace;
+  height: 40px; 
 `;
 
 const Bio = styled(motion.p)`
   font-size: 1.1rem;
-  max-width: 600px;
-  margin: 0 auto 2rem;
+  margin: 0 0 2rem;
   color: ${({ theme }) => theme.subtext};
 `;
 
-const CTAButton = styled(motion.a)`
-  display: inline-block;
-  background: ${({ theme }) => theme.accent};
-  color: #fff;
-  padding: 12px 24px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
+const Summary = styled(motion.div)`
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  justify-content: center;
 
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
   }
 `;
 
+const SummaryItem = styled.div`
+  text-align: center;
+`;
+
+const SummaryValue = styled.p`
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+  color: ${({ theme }) => theme.text};
+`;
+
+const SummaryLabel = styled.p`
+  margin: 0;
+  color: ${({ theme }) => theme.subtext};
+`;
+
 const Home = ({ content }) => {
-  const { name, title, bio } = content;
+  const { name, bio } = content;
 
   return (
     <HeroContainer>
-      <ContentWrapper>
-        <ProfileImage
-          src={profilePic}
-          alt="Samvrit Srinath"
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        />
+      <ProfileImageContainer
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
+        <ProfileImage src={profilePic} alt="Samvrit Srinath" />
+      </ProfileImageContainer>
+      <TextContent>
         <Name
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -94,30 +113,40 @@ const Home = ({ content }) => {
           {name}
         </Name>
         <Title
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          {title}
+          <Typewriter
+            words={['Software Engineer', 'Researcher', 'Problem Solver']}
+            loop={1}
+            typeSpeed={70}
+            deleteSpeed={50}
+          />
+          <span>&nbsp;</span>
         </Title>
         <Bio
-          initial={{ y: -20, opacity: 0 }}
+          initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
           {bio}
         </Bio>
-        <CTAButton
-          href="/Samvrit_Srinath_Resume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          initial={{ y: -20, opacity: 0 }}
+        <Summary
+          initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.8 }}
         >
-          Download Resume
-        </CTAButton>
-      </ContentWrapper>
+          <SummaryItem>
+            <SummaryValue>3+</SummaryValue>
+            <SummaryLabel>Years of Experience</SummaryLabel>
+          </SummaryItem>
+          <SummaryItem>
+            <SummaryValue>5+</SummaryValue>
+            <SummaryLabel>Projects Completed</SummaryLabel>
+          </SummaryItem>
+        </Summary>
+      </TextContent>
     </HeroContainer>
   );
 };

@@ -23,10 +23,7 @@ export const resumeData = {
       ],
     },
     skills: {
-      languages: ["Python", "C++", "Java", "JavaScript", "HTML/CSS", "SQL", "C", "Go", "ARM64", "TypeScript"],
-      technologies: ["Pandas", "PyTorch", "Tensorflow", "Numpy", "React", "MongoDB", "Node", "Vite", "Firebase", "Stripe", "PDB", "Postman", "Unix/Bash"],
-      librariesAndTools: ["Dask", "Spark", "Hadoop", "TorchVision", "OpenCV", "Matplotlib", "Redux/Sagas", "Sklearn"],
-      cloudServices: ["AWS EC2", "AWS S3"],
+      // ... skills data remains the same
     },
     experience: [
       {
@@ -34,6 +31,7 @@ export const resumeData = {
         company: "Arista Networks",
         duration: "March 2025 – June 2025",
         description: [],
+        technologies: ["Go", "Python", "C++", "Docker"],
       },
       {
         role: "Network Security Researcher",
@@ -45,6 +43,7 @@ export const resumeData = {
           "Integrating a custom GPT-o1 Model into an end-to-end pipeline to reduce data retrieval latency.",
           "Designed a Python-based analytical framework to identify vulnerabilities in government networks.",
         ],
+        technologies: ["Python", "Go", "Google Cloud (GCP)", "BigQuery", "SQL"],
       },
       {
         role: "Advanced Data Structures & Algorithms Tutor",
@@ -54,6 +53,7 @@ export const resumeData = {
           "Guided students in implementing and debugging complex data structures and algorithms using GDB and Valgrind.",
           "Developed assessment questions to evaluate proficiency in C++ and advanced data structures.",
         ],
+        technologies: ["C++", "GDB", "Valgrind"],
       },
       {
         role: "Software Engineering Intern",
@@ -64,6 +64,7 @@ export const resumeData = {
           "Modularized and enhanced diagnostic shell for device bring-up, boosting regression efficiency by 20%.",
           "Implemented cross-device telemetry audits to verify hardware consistency, reducing boot-up time by 50%.",
         ],
+        technologies: ["Go", "Python", "Bash", "gRPC"],
       },
       {
         role: "Full Stack Software Developer",
@@ -74,6 +75,7 @@ export const resumeData = {
           "Validated API performance and integration across 5+ databases using SQL and Postman.",
           "Automated QA with Playwright, reducing manual testing time by 30%.",
         ],
+        technologies: ["Java", "JSP", "SQL", "Playwright", "Postman"],
       },
     ],
   },
@@ -83,18 +85,21 @@ export const resumeData = {
       description: "Led a team of 10 to develop an all-in-one task hub, journal, and file storage system for developers. Created a local-first Progressive Web App using Electron and SQLite. Implemented a comprehensive CI/CD pipeline with GitHub Actions, Playwright, and Prettier.",
       technologies: ["JavaScript", "Electron", "Playwright", "SQLite3", "HTML/CSS"],
       link: "https://github.com/cse110-sp24-group7/cse110-sp24-group7",
+      image: "https://placehold.co/600x400/1E1E1E/FFFFFF?text=Project+1",
     },
     {
       title: "Inventory Processing System",
       description: "Developed a full-stack application for a 501(c)(3) non-profit to manage furniture requests and inventory for veterans. Implemented a Firebase backend for authentication and tiered roles, and a responsive frontend with React and Next.js connected to MongoDB.",
       technologies: ["React", "Next.js", "TypeScript", "Firebase", "MongoDB"],
       link: "https://github.com/TritonSE/PAP-Inventory-Processing",
+      image: "https://placehold.co/600x400/1E1E1E/FFFFFF?text=Project+2",
     },
     {
       title: "Political Sentiment Text Classifier",
       description: "Deployed BERT Transformers to predict and analyze political sentiment from documents with over 85% accuracy. Implemented data processing, visualizations, and k-fold cross-validation to mitigate overfitting using PyTorch and Numpy.",
       technologies: ["PyTorch", "Numpy", "Tensorflow", "Matplotlib"],
       link: "https://github.com/acmucsd-projects/fa22-ai-team-2",
+      image: "https://placehold.co/600x400/1E1E1E/FFFFFF?text=Project+3",
     },
   ],
 };

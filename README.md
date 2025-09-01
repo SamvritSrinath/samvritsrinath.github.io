@@ -114,8 +114,6 @@ While this is a personal portfolio, suggestions and feedback are welcome. Please
 - **Email**: sasrinath@ucsd.edu
 - **LinkedIn**: [samvrit-srinath](https://linkedin.com/in/samvrit-srinath)
 - **GitHub**: [SamvritSrinath](https://github.com/SamvritSrinath)
-- **Website**: [samvritsrinath.com](https://samvritsrinath.com)
+- **Website**: [samvrit.me](https://samvrit.me)
 
 ---
-
-Built with ❤️ using React and modern web technologies.

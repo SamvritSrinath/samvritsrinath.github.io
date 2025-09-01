@@ -73,24 +73,8 @@ const SubmitButton = styled.button`
   }
 `;
 
-const SocialLinks = styled(motion.div)`
-  display: flex;
-  gap: 2rem;
-  justify-content: center;
-`;
 
-const SocialIcon = styled.a`
-  color: ${({theme}) => theme.subtext};
-  font-size: 2rem;
-  transition: color 0.3s ease, transform 0.3s ease;
-
-  &:hover {
-    color: ${({theme}) => theme.accent};
-    transform: scale(1.1);
-  }
-`;
-
-const Contact = ({content, theme}) => {
+const Contact = ({theme}) => {
   const form = useRef();
   const [modalInfo, setModalInfo] = useState({
     show: false,

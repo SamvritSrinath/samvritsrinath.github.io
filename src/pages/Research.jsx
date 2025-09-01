@@ -194,11 +194,9 @@ const TechItem = styled.li`
 
 const Research = ({content, projects}) => {
   const renderResearchRole = (research, index) => {
-    // Find projects for Cloud Networking Researcher
-    const researchProjects =
-      research.role === 'Cloud Networking Researcher'
-        ? projects.filter(p => research.projects.includes(p.title))
-        : [];
+    const researchProjects = projects.filter(p =>
+      (research.projects || []).includes(p.title),
+    );
 
     return (
       <ResearchRole
@@ -273,21 +271,18 @@ const Research = ({content, projects}) => {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer">
-                  <FaGithub color="#333" /> View on GitHub
+                  {project.category === 'Research' ? (
+                    'Link to Paper'
+                  ) : (
+                    <>
+                      <FaGithub color="#333" /> View on GitHub
+                    </>
+                  )}
                 </ProjectLink>
               </ProjectCard>
             ))}
           </ProjectsGrid>
         )}
-
-        <TechList>
-          {research.technologies.map((tech, i) => (
-            <TechItem key={i}>
-              {techIconMap[tech] || <span></span>}
-              <span>{tech}</span>
-            </TechItem>
-          ))}
-        </TechList>
       </ResearchRole>
     );
   };
@@ -306,7 +301,6 @@ Research.propTypes = {
       role: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
       projects: PropTypes.arrayOf(PropTypes.string),
-      technologies: PropTypes.arrayOf(PropTypes.string).isRequired,
     }),
   ).isRequired,
   projects: PropTypes.arrayOf(

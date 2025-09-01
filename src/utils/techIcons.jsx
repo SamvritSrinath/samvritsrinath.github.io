@@ -7,6 +7,7 @@ import {
   FaDatabase,
   FaCog,
   FaServer,
+  FaLinux,
 } from 'react-icons/fa';
 import {
   SiNextdotjs,
@@ -14,6 +15,7 @@ import {
   SiFirebase,
   SiMongodb,
   SiCplusplus,
+  SiC,
   SiGo,
   SiPostman,
   SiElectron,
@@ -42,6 +44,8 @@ export const techIconMap = {
   Go: <SiGo color="#00ADD8" />,
   Python: <FaPython color="#3776AB" />,
   'C++': <SiCplusplus color="#00599C" />,
+  C: <SiC color="#A8B9CC" />,
+  Linux: <FaLinux color="#FCC624" />,
   Docker: <FaDocker color="#2496ED" />,
   gRPC: <FaServer color="#4285F4" />,
   Java: <FaJava color="#ED8B00" />,

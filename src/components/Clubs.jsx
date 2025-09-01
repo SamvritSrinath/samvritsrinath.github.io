@@ -25,6 +25,14 @@ const ClubCard = styled(motion.div)`
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    border-color: ${({theme}) => theme.accent};
+  }
 `;
 
 const ClubLogo = styled.img`
@@ -43,6 +51,12 @@ const ClubName = styled.h3`
 const ClubRole = styled.p`
   font-size: 1rem;
   color: ${({theme}) => theme.subtext};
+`;
+
+const ClubLink = styled.a`
+  text-decoration: none;
+  color: inherit;
+  display: block;
 `;
 
 const Clubs = ({clubs}) => {
@@ -68,9 +82,17 @@ const Clubs = ({clubs}) => {
       animate="visible">
       {clubs.map((club, index) => (
         <ClubCard key={index} variants={itemVariants}>
-          {club.logo && <ClubLogo src={club.logo} alt={`${club.name} logo`} />}
-          <ClubName>{club.name}</ClubName>
-          <ClubRole>{club.role}</ClubRole>
+          <ClubLink
+            href={club.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={`Visit ${club.name} website`}>
+            {club.logo && (
+              <ClubLogo src={club.logo} alt={`${club.name} logo`} />
+            )}
+            <ClubName>{club.name}</ClubName>
+            <ClubRole>{club.role}</ClubRole>
+          </ClubLink>
         </ClubCard>
       ))}
     </ClubsContainer>
@@ -83,6 +105,7 @@ Clubs.propTypes = {
       name: PropTypes.string.isRequired,
       role: PropTypes.string.isRequired,
       logo: PropTypes.string,
+      website: PropTypes.string.isRequired,
     }),
   ).isRequired,
 };

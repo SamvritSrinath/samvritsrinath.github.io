@@ -8,6 +8,16 @@ const SkillsContainer = styled.div`
   border-radius: 20px;
   margin: 2rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+    margin: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+    margin: 1rem;
+  }
 `;
 
 const SectionTitle = styled.h2`
@@ -16,6 +26,16 @@ const SectionTitle = styled.h2`
   margin-bottom: 2rem;
   margin-top: 0;
   text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.8rem;
+    margin-bottom: 1.25rem;
+  }
 `;
 
 const SkillsGrid = styled.div`
@@ -24,6 +44,16 @@ const SkillsGrid = styled.div`
   gap: 2rem;
   max-width: 1000px;
   margin: 0 auto;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 1rem;
+  }
 `;
 
 const SkillCard = styled(motion.div)`

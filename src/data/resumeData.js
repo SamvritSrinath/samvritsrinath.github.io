@@ -2,7 +2,7 @@ export const resumeData = {
   main: {
     name: 'Samvrit Srinath',
     title: 'Software Engineer | Researcher',
-    bio: 'Driven and passionate Computer Science student at UC San Diego with a focus on systems, networking, and machine learning. Experienced in developing scalable software solutions and conducting cutting-edge research. Actively seeking opportunities to tackle challenging problems and contribute to innovative projects.',
+    bio: 'Driven and passionate Computer Science student at UC San Diego with a focus on systems, networking, and machine learning. Experienced in developing scalable software solutions for Networked Systems and conducting cutting-edge research in Security. Actively seeking opportunities to tackle challenging problems and contribute to innovative projects.',
     contact: {
       email: 'sasrinath@ucsd.edu',
       phone: '628-232-1824',
@@ -18,15 +18,15 @@ export const resumeData = {
       details: 'Regents Scholar (Top 1% of incoming freshman), GPA: 3.97/4.00',
       courses: [
         'Advanced Data Structures',
-        'Algorithms',
-        'Graduate Intro to ML',
+        'Algorithmic Design',
+        'Graduate Intro to Machine Learning',
         'Recommender Systems',
         'Computer Architecture',
         'Parallel Computing',
         'Wireless Networks',
         'Internet Measurement',
         'AI: Search & Optimization',
-        'Databases',
+        'Database Systems',
         'Software Engineering',
         'Scalable Analytics',
       ],
@@ -44,8 +44,14 @@ export const resumeData = {
           role: 'Platform SWE Intern (Co-op)',
           duration: 'Jan 2025 – Present',
           description: [
-            "Continuing my work on platform software, focusing on enhancing the scalability and reliability of Arista's core networking products.",
+            "Architected and developed core software components for next-generation Ethernet switches featuring advanced PHYs and loopback capabilities, contributing to Arista's cutting-edge switching portfolio.",
+            'Built comprehensive switch modeling framework translating hardware register specifications into traffic forwarding behaviors, enabling accurate simulation and validation of network operations.',
+            'Built the first gRPC-based device communication framework in my organization from scratch, creating the complete pipeline from diagnostic clients to infrastructure server endpoints and enabling validation support across multiple hardware platforms. with 12 APIs across 3 databases and 8 platforms, streamlining validation workflows for distributed switch environments.',
+            'Optimized board autodetection algorithms, achieving 96% reduction in hardware lookup time and significantly improving system initialization performance.',
+            'Developed custom Linux SMBus middleware for I2C hardware transactions, ensuring reliable register-level communication and hardware access across switch platforms.',
+            'Created multi-platform testing framework with multiprocessing support for switch wiring simulation, covering all Arista switch models and accelerating CI pipeline execution.',
           ],
+          technologies: ['Python', 'Golang', 'gRPC', 'C', 'Linux'],
         },
         {
           role: 'Software Engineer Intern',
@@ -55,9 +61,9 @@ export const resumeData = {
             "Created comprehensive performance tests for Arista's proprietary ASICs and switches, focusing on packet integrity and PRBS testing to ensure hardware quality.",
             'Built Python diagnostics for PCIe Linkup and ASIC resets, streamlining hardware initialization and reducing boot-up time.',
           ],
+          technologies: ['Python', 'C++', 'C'],
         },
       ],
-      technologies: ['Go', 'Python', 'C++', 'Docker', 'gRPC'],
     },
     {
       company: 'UC San Diego',
@@ -67,55 +73,51 @@ export const resumeData = {
           role: 'Software Engineering Intern',
           duration: 'Jul 2023 – Apr 2024',
           description: [
-            'Developed a full-stack Java application used by over 40,000 students and staff to manage social identity preferences across university platforms.',
-            'Engineered a robust backend with Java and JSP, integrating with multiple university databases and ensuring data consistency.',
+            'Created a live Full-Stack Application using Java and JSP used by 40K users to alter and display names on websites and official documents',
+            'Validated Performance and Integration of APIs across 5+ databases using SQL and Postman',
+            'Emulated user behavior using Playwright to automate QA, reducing manual testing time by 30%',
+            'Implemented a scalable REST API solution used in 6 applications for CRUD Operations and SSO on Student Databases',
           ],
+          technologies: ['Java', 'JSP', 'SQL', 'Postman', 'Playwright'],
         },
-        {
-          role: 'CSE Instructional Assistant',
-          duration: 'Aug 2023 – Present',
-          description: [
-            'Served as a teaching assistant for core computer science courses, including Introduction to Programming, Advanced Data Structures, and Computer Organization.',
-            'Mentored over 100 students per quarter, providing guidance on complex topics and fostering a deeper understanding of computer science fundamentals.',
-          ],
-        },
-      ],
-      technologies: [
-        'Java',
-        'JSP',
-        'SQL',
-        'Playwright',
-        'Postman',
-        'C++',
-        'GDB',
-        'Valgrind',
       ],
     },
   ],
   research: [
     {
-      role: 'Cloud Networking Researcher',
+      role: 'Cloud Networking',
       description:
         'Conducting research on cloud networking infrastructure and internet measurement. Focus areas include network path analysis, data sovereignty, and foreign surveillance detection.',
       projects: ['IP-Sage', 'Country-in-the-Middle'],
-      technologies: ['Python'],
     },
     {
-      role: 'Design Optimization Researcher',
+      role: 'Computer Science Education',
       description:
-        'Researching optimization algorithms and their applications in various domains.',
-      projects: [],
-      technologies: ['Python', 'Optimization Algorithms'],
-    },
-    {
-      role: 'CS Education Researcher',
-      description:
-        'Investigating effective methods for computer science education and curriculum development.',
-      projects: [],
-      technologies: ['Educational Research', 'Curriculum Design'],
+        'Investigating effective methods for computer science education and curriculum development. Current focus areas are on analyzing Problem Decomposition pedagogies for Introductory Computer Science Courses',
+      projects: ['CS1-LLM Experience Report'],
     },
   ],
   projects: [
+    {
+      title: 'CS1-LLM Experience Report',
+      description:
+        'An experience report on the integration of Large Language Models (LLMs) into introductory Computer Science (CS1) curricula, analyzing their impact on student learning and problem-solving methodologies. This work was presented at the ITiCSE 2024 conference.',
+      technologies: [
+        'Educational Research',
+        'Curriculum Design',
+        'Python',
+        'Pandas',
+      ],
+      link: '/assets/papers/CS1_LLM_Experience_Report__ITiCSE_2024_.pdf',
+      images: [
+        '/assets/research/ITiCSE/LLM_workflow_image.png',
+        '/assets/research/ITiCSE/copilot_comfort.png',
+        '/assets/research/ITiCSE/copilot_helped_hindered.png',
+        '/assets/research/ITiCSE/divergent_column_percent_small.png',
+      ],
+      featured: false,
+      category: 'Research',
+    },
     {
       title: 'LomaVerse',
       description:
@@ -138,8 +140,8 @@ export const resumeData = {
       title: 'Country-in-the-Middle',
       description:
         "An in-depth internet measurement study to identify countries that lie on the network paths between users and their governments (Country-in-the-Middle). This research, part of UCSD's Early Research Scholars Program (ERSP), involved analyzing over 9,000 IP-level paths to government websites from 11 countries to understand issues of data sovereignty and foreign surveillance.",
-      technologies: ['Python', 'Pandas', 'Scapy', 'RIPE Atlas'],
-      link: 'https://www.samvritsrinath.com/gov_traceroutes_paper.pdf',
+      technologies: ['Python', 'Pandas', 'RIPE Atlas API'],
+      link: '/assets/papers/gov_traceroutes_paper.pdf',
       images: [
         '/assets/projects/traceroutes/heatmap_violators.png',
         '/assets/projects/traceroutes/banjo_graph_with_outline.png',
@@ -164,7 +166,7 @@ export const resumeData = {
         'BigQuery',
         'SQL',
       ],
-      link: 'https://github.com/SamvritSrinath/IP-Sage',
+      link: '/assets/papers/Operator_IMC25.pdf',
       images: ['/assets/projects/ip-sage/ip-sage-1.png'],
       featured: false,
       category: 'Research',
@@ -187,7 +189,7 @@ export const resumeData = {
     {
       title: 'Psyches of Color App',
       description:
-        'A mobile application designed to be a comprehensive mental health resource directory for people of color. Recognizing the unique challenges faced by this community, the app provides a curated list of culturally competent therapists, support groups, and mental health resources. Built with React Native and TypeScript for a cross-platform experience, and powered by Firebase for its backend, the app is a vital tool for connecting users with the support they need. It is publicly available on the Google Play Store.',
+        'Developed for Psyches of Color, a 501(c)(3) non-profit dedicated to providing culturally relevant mental health support to Black and Latinx youth. This mobile app serves as a comprehensive resource directory, connecting users with culturally competent therapists and support groups to decrease stigma and promote healing. Built with React Native and TypeScript for a cross-platform experience and powered by Firebase, the app is a vital tool for its community.',
       technologies: ['React Native', 'TypeScript', 'Firebase'],
       link: 'https://github.com/TritonSE/Psyches-Of-Color-App',
       images: [
@@ -237,26 +239,94 @@ export const resumeData = {
       category: 'Club',
     },
   ],
+  teaching: [
+    {
+      company: 'UC San Diego - CSE Department',
+      logo: '/assets/companies/CSE_UCSD.png',
+      roles: [
+        {
+          role: 'Education Researcher & Head Tutor (CSE 8A)',
+          duration: 'July 2023 – Present',
+          description: [
+            'Developed novel Problem Decomposition Question Suites, analyzing student performance to enhance teaching methodologies.',
+            'Led a team of 33+ instructional staff, serving as an interim TA and running lab sections for over 100 students.',
+            'Designed and documented a new curriculum for a Pilot Intro to Python course, exposing students to Pandas and Pygame.',
+            'Published a paper in the Computers & Education Journal on the efficacy of the new curriculum.',
+          ],
+          technologies: ['Python', 'Pandas', 'Pygame', 'Educational Research'],
+        },
+        {
+          role: 'Advanced DSA Tutor (CSE 100)',
+          duration: 'Dec 2023 – Mar 2025',
+          description: [
+            'Fostered an inclusive learning environment for complex data structures like Treaps, Disjoint Sets, and Aho-Corasick Automatons.',
+            'Guided students in debugging advanced algorithms, including Huffman Trees and Graph Search, using GDB and Valgrind.',
+            'Authored and validated summative assessment questions to ensure proficiency in C++ and advanced data structures.',
+          ],
+          technologies: ['C++', 'GDB', 'Valgrind'],
+        },
+        {
+          role: 'Systems Programming Tutor (CSE 30)',
+          duration: 'Aug 2024 – Dec 2024',
+          description: [
+            'Hosted office hours and review sessions for over 150 students on topics in C, Assembly, Machine Code, and Caches.',
+            'Developed assignments using PrairieLearn, focusing on ARM architecture, control flow, and stack frames.',
+            'Created a comprehensive debugging guide for a custom ARM emulator to improve student troubleshooting skills.',
+          ],
+          technologies: ['C', 'ARM', 'Assembly', 'PrairieLearn'],
+        },
+        {
+          role: 'Project Mentor (CSE SPIS)',
+          duration: 'July 2023 – Oct 2023',
+          description: [
+            'Validated 8 comprehensive labs on Python basics, recursion, image processing (PIL), and an introduction to Machine Learning.',
+            'Mentored 11 student projects in Computer Vision, Recommendation Systems, and Predictive Algorithms.',
+          ],
+          technologies: ['Python', 'PIL', 'Scikit-learn'],
+        },
+      ],
+    },
+    {
+      company: 'CSE - Peer Led Academic Cohorts (PACE)',
+      logo: '/assets/companies/CSE_PACE.png',
+      roles: [
+        {
+          role: 'Lead Peer Mentor (CSE 89)',
+          duration: 'August 2023 – Present',
+          description: [
+            'Organized seminars and served as a key resource for incoming first-year and transfer students.',
+            'Mentored over 200 students on course selection, internship strategies, and career paths in various CS domains.',
+            'Developed and delivered lesson plans on the foundations of AI and Image Generation.',
+          ],
+          technologies: ['Mentorship', 'AI', 'Curriculum Design'],
+        },
+      ],
+    },
+  ],
   clubs: [
     {
       name: 'Triton Software Engineering',
       role: 'SWE/Product Manager',
       logo: '/assets/clubs/tse.png',
+      website: 'https://tritonse.github.io/',
     },
     {
       name: 'ACM AI @ UCSD',
       role: 'Technical Events Lead',
       logo: '/assets/clubs/acm-ai.png',
+      website: 'https://ai.acmucsd.com/',
     },
     {
       name: 'UCSD Computer Science & Engineering Society',
       role: 'President, Software Developer & PR Chair',
       logo: '/assets/clubs/cses.png',
+      website: 'https://csesucsd.com/',
     },
     {
       name: 'Triton Unmanned Aerial Systems',
-      role: 'Computer Vision Developer',
+      role: 'Computer Vision Developer - Saliency',
       logo: '/assets/clubs/tuas.png',
+      website: 'https://tritonuas.com/',
     },
   ],
 };

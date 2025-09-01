@@ -1,119 +1,193 @@
-import React from 'react';
+import {useRef, useState} from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { FaEnvelope, FaLinkedin, FaGithub } from 'react-icons/fa';
+import {motion} from 'framer-motion';
+import emailjs from '@emailjs/browser';
+
+import Modal from '../components/Modal';
 
 const ContactContainer = styled.div`
   padding: 4rem 2rem;
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  margin: 2rem auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 `;
 
 const SectionTitle = styled.h2`
   font-size: 2.5rem;
-  color: ${({ theme }) => theme.accent};
+  color: ${({theme}) => theme.accent};
   margin-bottom: 1rem;
 `;
 
 const Subtitle = styled.p`
   font-size: 1.1rem;
-  color: ${({ theme }) => theme.subtext};
+  color: ${({theme}) => theme.subtext};
   margin-bottom: 3rem;
 `;
 
-const ContactInfo = styled(motion.div)`
+const Form = styled(motion.form)`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  align-items: center;
+  margin-bottom: 3rem;
 `;
 
-const InfoItem = styled.a`
-  font-size: 1.2rem;
-  color: ${({ theme }) => theme.text};
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  transition: color 0.3s ease;
+const Input = styled.input`
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid ${({theme}) => theme.headerBorder};
+  background: ${({theme}) => theme.cardBg};
+  color: ${({theme}) => theme.text};
+  font-size: 1rem;
+`;
+
+const TextArea = styled.textarea`
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid ${({theme}) => theme.headerBorder};
+  background: ${({theme}) => theme.cardBg};
+  color: ${({theme}) => theme.text};
+  font-size: 1rem;
+  min-height: 150px;
+  resize: vertical;
+`;
+
+const SubmitButton = styled.button`
+  padding: 1rem;
+  border-radius: 8px;
+  border: none;
+  background: ${({theme}) => theme.accent};
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
 
   &:hover {
-    color: ${({ theme }) => theme.accent};
+    transform: translateY(-3px);
   }
 `;
 
 const SocialLinks = styled(motion.div)`
   display: flex;
   gap: 2rem;
-  margin-top: 3rem;
   justify-content: center;
 `;
 
 const SocialIcon = styled.a`
-  color: ${({ theme }) => theme.subtext};
+  color: ${({theme}) => theme.subtext};
   font-size: 2rem;
   transition: color 0.3s ease, transform 0.3s ease;
 
   &:hover {
-    color: ${({ theme }) => theme.accent};
+    color: ${({theme}) => theme.accent};
     transform: scale(1.1);
   }
 `;
 
-const Contact = ({ content }) => {
-  const { email, linkedin, github } = content;
+const Contact = ({content, theme}) => {
+  const form = useRef();
+  const [modalInfo, setModalInfo] = useState({
+    show: false,
+    title: '',
+    message: '',
+  });
 
-  const containerVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        staggerChildren: 0.2,
-        duration: 0.6,
+  const handleCloseModal = () =>
+    setModalInfo({show: false, title: '', message: ''});
+
+  const sendEmail = e => {
+    e.preventDefault();
+
+    const SERVICE_ID = 'YOUR_SERVICE_ID';
+    const TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+    const PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+
+    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY).then(
+      result => {
+        console.log(result.text);
+        setModalInfo({
+          show: true,
+          title: 'Success!',
+          message: 'Your message has been sent successfully.',
+        });
+        form.current.reset();
       },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 15 },
-    visible: { opacity: 1, y: 0 },
+      error => {
+        console.log(error.text);
+        setModalInfo({
+          show: true,
+          title: 'Error',
+          message: 'Failed to send message. Please try again later.',
+        });
+      },
+    );
   };
 
   return (
-    <ContactContainer>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <SectionTitle>Get In Touch</SectionTitle>
-        <Subtitle>
-          I'm always open to discussing new projects, creative ideas, or opportunities to be part of an amazing team.
-        </Subtitle>
-      </motion.div>
-      <ContactInfo variants={containerVariants} initial="hidden" animate="visible">
-        <motion.div variants={itemVariants}>
-          <InfoItem href={`mailto:${email}`}>
-            <FaEnvelope /> {email}
-          </InfoItem>
+    <>
+      <Modal
+        show={modalInfo.show}
+        handleClose={handleCloseModal}
+        title={modalInfo.title}
+        message={modalInfo.message}
+      />
+      <ContactContainer>
+        <motion.div
+          initial={{opacity: 0}}
+          animate={{opacity: 1}}
+          transition={{duration: 0.5}}>
+          <SectionTitle>Get In Touch</SectionTitle>
+          <Subtitle>
+            Have a question or want to work together? Leave your details and
+            I&apos;ll get back to you as soon as possible.
+          </Subtitle>
         </motion.div>
-      </ContactInfo>
-      <SocialLinks variants={containerVariants} initial="hidden" animate="visible">
-        <motion.div variants={itemVariants}>
-          <SocialIcon href={github} target="_blank" rel="noopener noreferrer">
-            <FaGithub />
-          </SocialIcon>
-        </motion.div>
-        <motion.div variants={itemVariants}>
-          <SocialIcon href={linkedin} target="_blank" rel="noopener noreferrer">
-            <FaLinkedin />
-          </SocialIcon>
-        </motion.div>
-      </SocialLinks>
-    </ContactContainer>
+
+        <Form
+          ref={form}
+          onSubmit={sendEmail}
+          initial={{opacity: 0, y: 20}}
+          animate={{opacity: 1, y: 0}}
+          transition={{duration: 0.6, delay: 0.2}}>
+          <Input
+            type="text"
+            name="user_name"
+            placeholder="Your Name"
+            required
+            theme={theme}
+          />
+          <Input
+            type="email"
+            name="user_email"
+            placeholder="Your Email"
+            required
+            theme={theme}
+          />
+          <TextArea
+            name="message"
+            placeholder="Your Message"
+            required
+            theme={theme}
+          />
+          <SubmitButton type="submit">Send Message</SubmitButton>
+        </Form>
+      </ContactContainer>
+    </>
   );
+};
+
+Contact.propTypes = {
+  content: PropTypes.shape({
+    linkedin: PropTypes.string.isRequired,
+    github: PropTypes.string.isRequired,
+  }).isRequired,
+  theme: PropTypes.object.isRequired,
 };
 
 export default Contact;

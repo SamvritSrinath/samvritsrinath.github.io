@@ -24,3 +24,8 @@ dist-ssr
 *.sw?
 
 .assets/
+
+# ESLint cache
+.eslintcache
+
+GEMINI.md

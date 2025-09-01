@@ -16,7 +16,7 @@ const CenteredSwiperSlide = styled(SwiperSlide)`
   align-items: center;
 `;
 
-const ProjectsContainer = styled.div`
+const AllProjectsContainer = styled.div`
   padding: 4rem 2rem;
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
@@ -32,7 +32,7 @@ const SectionTitle = styled.h2`
   text-align: center;
 `;
 
-const FeaturedProject = styled(motion.div)`
+const Project = styled(motion.div)`
   display: flex;
   flex-direction: ${({direction}) => direction || 'row'};
   gap: 3rem;
@@ -41,6 +41,33 @@ const FeaturedProject = styled(motion.div)`
 
   @media (max-width: 768px) {
     flex-direction: column;
+  }
+`;
+
+const ProjectDivider = styled.div`
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    ${({theme}) => theme.accent} 50%,
+    transparent 100%
+  );
+  margin: 3rem 0;
+  opacity: 0.6;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    background: ${({theme}) => theme.accent};
+    border-radius: 50%;
+    box-shadow: 0 0 10px ${({theme}) => theme.accent};
   }
 `;
 
@@ -168,11 +195,9 @@ const ProjectLink = styled.a`
   }
 `;
 
-const Projects = ({content}) => {
-  const featuredProjects = content.filter(p => p.featured);
-
+const AllProjects = ({content}) => {
   const renderProject = (project, index) => (
-    <FeaturedProject
+    <Project
       key={index}
       direction={index % 2 === 0 ? 'row' : 'row-reverse'}
       initial={{opacity: 0, y: 20}}
@@ -235,18 +260,23 @@ const Projects = ({content}) => {
           <FaGithub color="#333" /> View on GitHub
         </ProjectLink>
       </ProjectInfo>
-    </FeaturedProject>
+    </Project>
   );
 
   return (
-    <ProjectsContainer>
-      <SectionTitle>Featured Works</SectionTitle>
-      {featuredProjects.map(renderProject)}
-    </ProjectsContainer>
+    <AllProjectsContainer>
+      <SectionTitle>Project Archive</SectionTitle>
+      {content.map((project, index) => (
+        <div key={index}>
+          {renderProject(project, index)}
+          {index < content.length - 1 && <ProjectDivider />}
+        </div>
+      ))}
+    </AllProjectsContainer>
   );
 };
 
-Projects.propTypes = {
+AllProjects.propTypes = {
   content: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
@@ -259,4 +289,4 @@ Projects.propTypes = {
   ).isRequired,
 };
 
-export default Projects;
+export default AllProjects;

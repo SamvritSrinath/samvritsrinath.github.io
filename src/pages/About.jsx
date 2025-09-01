@@ -5,7 +5,7 @@ import Timeline from '../components/Timeline';
 import Clubs from '../components/Clubs';
 
 const AboutContainer = styled.div`
-  padding: 4rem 2rem;
+  padding: 2rem 2rem;
   max-width: 1000px;
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.08);
@@ -23,6 +23,7 @@ const SectionTitle = styled.h2`
   font-size: 2.5rem;
   color: ${({theme}) => theme.accent};
   margin-bottom: 2rem;
+  margin-top: 0;
   padding-bottom: 0.5rem;
   border-bottom: 2px solid ${({theme}) => theme.accent};
   display: inline-block;

@@ -183,9 +183,6 @@ const Header = ({theme, toggleTheme}) => {
             <StyledLink to="contact" activeClass="active" {...scrollProps}>
               Contact
             </StyledLink>
-            <RouterStyledLink to="/project-archive">
-              Project Archive
-            </RouterStyledLink>
           </>
         ) : (
           <>

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import {motion} from 'framer-motion';
 
 const SkillsContainer = styled.div`
-  padding: 4rem 2rem;
+  padding: 2rem 2rem;
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
   border-radius: 20px;
@@ -13,7 +13,8 @@ const SkillsContainer = styled.div`
 const SectionTitle = styled.h2`
   font-size: 2.5rem;
   color: ${({theme}) => theme.accent};
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
+  margin-top: 0;
   text-align: center;
 `;
 

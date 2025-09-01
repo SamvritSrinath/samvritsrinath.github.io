@@ -38,7 +38,7 @@ export const resumeData = {
   workExperience: [
     {
       company: 'Arista Networks',
-      logo: '/Arista.png',
+      logo: '/assets/companies/Arista.png',
       roles: [
         {
           role: 'Platform SWE Intern (Co-op)',
@@ -61,7 +61,7 @@ export const resumeData = {
     },
     {
       company: 'UC San Diego',
-      logo: '/UCSD.png',
+      logo: '/assets/companies/UCSD.png',
       roles: [
         {
           role: 'Software Engineering Intern',
@@ -176,10 +176,10 @@ export const resumeData = {
       technologies: ['React', 'Next.js', 'TypeScript', 'Firebase', 'MongoDB'],
       link: 'https://github.com/TritonSE/PAP-Inventory-Processing',
       images: [
-        '/assets/projects/pap-inventory-1.jpg',
-        '/assets/projects/pap-inventory-2.jpg',
-        '/assets/projects/pap-inventory-3.jpg',
-        '/assets/projects/pap-inventory-4.jpg',
+        '/assets/projects/pap-inventory/pap-inventory-1.jpg',
+        '/assets/projects/pap-inventory/pap-inventory-2.jpg',
+        '/assets/projects/pap-inventory/pap-inventory-3.jpg',
+        '/assets/projects/pap-inventory/pap-inventory-4.jpg',
       ],
       featured: true,
       category: 'Club',
@@ -191,10 +191,10 @@ export const resumeData = {
       technologies: ['React Native', 'TypeScript', 'Firebase'],
       link: 'https://github.com/TritonSE/Psyches-Of-Color-App',
       images: [
-        '/assets/projects/psyches-of-color-1.jpg',
-        '/assets/projects/psyches-of-color-2.jpg',
-        '/assets/projects/psyches-of-color-3.jpg',
-        '/assets/projects/psyches-of-color-4.jpg',
+        '/assets/projects/psyches-of-color/psyches-of-color-1.jpg',
+        '/assets/projects/psyches-of-color/psyches-of-color-2.jpg',
+        '/assets/projects/psyches-of-color/psyches-of-color-3.jpg',
+        '/assets/projects/psyches-of-color/psyches-of-color-4.jpg',
       ],
       featured: true,
       category: 'Club',
@@ -241,22 +241,22 @@ export const resumeData = {
     {
       name: 'Triton Software Engineering',
       role: 'SWE/Product Manager',
-      logo: 'src/assets/clubs/tse.png',
+      logo: '/assets/clubs/tse.png',
     },
     {
       name: 'ACM AI @ UCSD',
       role: 'Technical Events Lead',
-      logo: 'src/assets/clubs/acm-ai.png',
+      logo: '/assets/clubs/acm-ai.png',
     },
     {
       name: 'UCSD Computer Science & Engineering Society',
       role: 'President, Software Developer & PR Chair',
-      logo: 'src/assets/clubs/cses.png',
+      logo: '/assets/clubs/cses.png',
     },
     {
       name: 'Triton Unmanned Aerial Systems',
       role: 'Computer Vision Developer',
-      logo: 'src/assets/clubs/tuas.png',
+      logo: '/assets/clubs/tuas.png',
     },
   ],
 };

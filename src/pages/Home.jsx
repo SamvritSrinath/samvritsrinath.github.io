@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { Typewriter } from 'react-simple-typewriter';
+import {motion} from 'framer-motion';
+import {Typewriter} from 'react-simple-typewriter';
 import profilePic from '../assets/profile.png';
 
 const HeroContainer = styled.section`
@@ -11,6 +11,11 @@ const HeroContainer = styled.section`
   padding: 6rem 2rem;
   min-height: 100vh;
   gap: 4rem;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(3px);
+  border-radius: 20px;
+  margin: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -26,12 +31,17 @@ const ProfileImageContainer = styled(motion.div)`
 `;
 
 const ProfileImage = styled.img`
-  width: 220px;
-  height: 220px;
+  width: 400px;
+  height: 400px;
   border-radius: 50%;
   object-fit: cover;
-  border: 5px solid ${({ theme }) => theme.accent};
+  border: 5px solid ${({theme}) => theme.accent};
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    width: 300px;
+    height: 300px;
+  }
 `;
 
 const TextContent = styled.div`
@@ -42,7 +52,7 @@ const Name = styled(motion.h1)`
   font-size: 3.5rem;
   font-weight: 700;
   margin: 0;
-  color: ${({ theme }) => theme.text};
+  color: ${({theme}) => theme.text};
 
   @media (max-width: 768px) {
     font-size: 2.8rem;
@@ -52,16 +62,16 @@ const Name = styled(motion.h1)`
 const Title = styled(motion.h2)`
   font-size: 1.5rem;
   font-weight: 400;
-  color: ${({ theme }) => theme.accent};
+  color: ${({theme}) => theme.accent};
   margin: 0.5rem 0 1.5rem;
   font-family: 'Roboto Mono', monospace;
-  height: 40px; 
+  height: 40px;
 `;
 
 const Bio = styled(motion.p)`
   font-size: 1.1rem;
   margin: 0 0 2rem;
-  color: ${({ theme }) => theme.subtext};
+  color: ${({theme}) => theme.subtext};
 `;
 
 const Summary = styled(motion.div)`
@@ -84,39 +94,36 @@ const SummaryValue = styled.p`
   font-size: 1.8rem;
   font-weight: 700;
   margin: 0;
-  color: ${({ theme }) => theme.text};
+  color: ${({theme}) => theme.text};
 `;
 
 const SummaryLabel = styled.p`
   margin: 0;
-  color: ${({ theme }) => theme.subtext};
+  color: ${({theme}) => theme.subtext};
 `;
 
-const Home = ({ content }) => {
-  const { name, bio } = content;
+const Home = ({content}) => {
+  const {name, bio} = content;
 
   return (
     <HeroContainer>
       <ProfileImageContainer
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-      >
+        initial={{scale: 0, opacity: 0}}
+        animate={{scale: 1, opacity: 1}}
+        transition={{duration: 0.5, ease: 'easeOut'}}>
         <ProfileImage src={profilePic} alt="Samvrit Srinath" />
       </ProfileImageContainer>
       <TextContent>
         <Name
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
+          initial={{y: -20, opacity: 0}}
+          animate={{y: 0, opacity: 1}}
+          transition={{duration: 0.5, delay: 0.2}}>
           {name}
         </Name>
         <Title
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-        >
+          initial={{opacity: 0}}
+          animate={{opacity: 1}}
+          transition={{duration: 0.5, delay: 0.4}}>
           <Typewriter
             words={['Software Engineer', 'Researcher', 'Problem Solver']}
             loop={1}
@@ -126,20 +133,18 @@ const Home = ({ content }) => {
           <span>&nbsp;</span>
         </Title>
         <Bio
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-        >
+          initial={{y: 20, opacity: 0}}
+          animate={{y: 0, opacity: 1}}
+          transition={{duration: 0.5, delay: 0.6}}>
           {bio}
         </Bio>
         <Summary
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.8 }}
-        >
+          initial={{y: 20, opacity: 0}}
+          animate={{y: 0, opacity: 1}}
+          transition={{duration: 0.5, delay: 0.8}}>
           <SummaryItem>
-            <SummaryValue>3+</SummaryValue>
-            <SummaryLabel>Years of Experience</SummaryLabel>
+            <SummaryValue>3</SummaryValue>
+            <SummaryLabel>Internships</SummaryLabel>
           </SummaryItem>
           <SummaryItem>
             <SummaryValue>5+</SummaryValue>

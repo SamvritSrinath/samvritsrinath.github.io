@@ -38,10 +38,10 @@ const Footer = () => {
     <FooterContainer>
       <SocialLinks>
         <SocialIcon href={github} target="_blank" rel="noopener noreferrer">
-          <FaGithub />
+          <FaGithub color="#333" />
         </SocialIcon>
         <SocialIcon href={linkedin} target="_blank" rel="noopener noreferrer">
-          <FaLinkedin />
+          <FaLinkedin color="#0077B5" />
         </SocialIcon>
       </SocialLinks>
       <Copyright>&copy; {new Date().getFullYear()} Samvrit Srinath. All Rights Reserved.</Copyright>

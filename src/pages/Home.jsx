@@ -124,7 +124,7 @@ const Home = ({content}) => {
           animate={{opacity: 1}}
           transition={{duration: 0.5, delay: 0.4}}>
           <Typewriter
-            words={['Software Engineer', 'Researcher', 'Problem Solver']}
+            words={['Software Engineer', 'Student', 'Researcher', 'Instructor', 'Leader', 'Problem Solver']}
             loop={1}
             typeSpeed={70}
             deleteSpeed={50}

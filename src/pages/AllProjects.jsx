@@ -4,6 +4,7 @@ import {FaGithub} from 'react-icons/fa';
 import {motion} from 'framer-motion';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Navigation, Pagination, Autoplay, EffectFade} from 'swiper/modules';
+import {useEffect} from 'react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -197,6 +198,11 @@ const ProjectLink = styled.a`
 `;
 
 const AllProjects = ({content}) => {
+  useEffect(() => {
+    // Scroll to top when component mounts
+    window.scrollTo(0, 0);
+  }, []);
+
   const renderProject = (project, index) => (
     <Project
       key={index}
@@ -260,7 +266,13 @@ const AllProjects = ({content}) => {
           href={project.link}
           target="_blank"
           rel="noopener noreferrer">
-          <FaGithub color="#333" /> View on GitHub
+          {project.category === 'Research' ? (
+            'Link to Paper'
+          ) : (
+            <>
+              <FaGithub color="#333" /> View on GitHub
+            </>
+          )}
         </ProjectLink>
       </ProjectInfo>
     </Project>
@@ -288,6 +300,7 @@ AllProjects.propTypes = {
       technologies: PropTypes.arrayOf(PropTypes.string).isRequired,
       link: PropTypes.string.isRequired,
       featured: PropTypes.bool,
+      category: PropTypes.string,
     }),
   ).isRequired,
 };

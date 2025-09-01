@@ -256,7 +256,13 @@ const Projects = ({content}) => {
           href={project.link}
           target="_blank"
           rel="noopener noreferrer">
-          <FaGithub color="#333" /> View on GitHub
+          {project.category === 'Research' ? (
+            'Link to Paper'
+          ) : (
+            <>
+              <FaGithub color="#333" /> View on GitHub
+            </>
+          )}
         </ProjectLink>
       </ProjectInfo>
     </FeaturedProject>
@@ -282,6 +288,7 @@ Projects.propTypes = {
       technologies: PropTypes.arrayOf(PropTypes.string).isRequired,
       link: PropTypes.string.isRequired,
       featured: PropTypes.bool,
+      category: PropTypes.string,
     }),
   ).isRequired,
 };

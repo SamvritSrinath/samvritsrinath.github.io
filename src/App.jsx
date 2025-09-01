@@ -12,6 +12,7 @@ import Contact from './pages/Contact';
 import NetworkBackground from './components/NetworkBackground';
 import {resumeData} from './data/resumeData';
 import Skills from './components/Skills';
+import Teaching from './components/Teaching';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -76,6 +77,9 @@ function App() {
                     }}
                     showEducationOnly={true}
                   />
+                </section>
+                <section id="teaching">
+                  <Teaching teaching={resumeData.teaching} />
                 </section>
                 <section id="clubs">
                   <About

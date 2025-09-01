@@ -4,6 +4,7 @@ import {FaGithub} from 'react-icons/fa';
 import {motion} from 'framer-motion';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Navigation, Pagination, Autoplay, EffectFade} from 'swiper/modules';
+import {Link} from 'react-router-dom';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -17,7 +18,7 @@ const CenteredSwiperSlide = styled(SwiperSlide)`
 `;
 
 const ProjectsContainer = styled.div`
-  padding: 4rem 2rem;
+  padding: 2rem 2rem;
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
   border-radius: 20px;
@@ -28,7 +29,8 @@ const ProjectsContainer = styled.div`
 const SectionTitle = styled.h2`
   font-size: 2.5rem;
   color: ${({theme}) => theme.accent};
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
+  margin-top: 0;
   text-align: center;
 `;
 
@@ -168,6 +170,26 @@ const ProjectLink = styled.a`
   }
 `;
 
+const SeeMoreButton = styled(Link)`
+  display: inline-block;
+  background: ${({theme}) => theme.accent};
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-top: 2rem;
+  transition: all 0.3s ease;
+  border: 2px solid ${({theme}) => theme.accent};
+
+  &:hover {
+    background: transparent;
+    color: ${({theme}) => theme.accent};
+    transform: translateY(-2px);
+  }
+`;
+
 const Projects = ({content}) => {
   const featuredProjects = content.filter(p => p.featured);
 
@@ -194,7 +216,9 @@ const Projects = ({content}) => {
               autoplay={{delay: 5000, disableOnInteraction: false}}
               allowTouchMove={true}
               watchSlidesProgress={true}
-              watchOverflow={true}>
+              watchOverflow={true}
+              loop={true}
+              initialSlide={0}>
               {project.images.map((image, i) => (
                 <CenteredSwiperSlide key={i}>
                   <ProjectImage
@@ -242,6 +266,9 @@ const Projects = ({content}) => {
     <ProjectsContainer>
       <SectionTitle>Featured Works</SectionTitle>
       {featuredProjects.map(renderProject)}
+      <div style={{textAlign: 'center', marginTop: '2rem'}}>
+        <SeeMoreButton to="/project-archive">See More Projects</SeeMoreButton>
+      </div>
     </ProjectsContainer>
   );
 };

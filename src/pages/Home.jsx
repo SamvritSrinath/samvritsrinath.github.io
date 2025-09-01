@@ -2,13 +2,12 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
 import {Typewriter} from 'react-simple-typewriter';
-import profilePic from '../assets/profile.png';
 
 const HeroContainer = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6rem 2rem;
+  padding: 4rem 2rem;
   min-height: 100vh;
   gap: 4rem;
   background: rgba(255, 255, 255, 0.03);
@@ -111,7 +110,7 @@ const Home = ({content}) => {
         initial={{scale: 0, opacity: 0}}
         animate={{scale: 1, opacity: 1}}
         transition={{duration: 0.5, ease: 'easeOut'}}>
-        <ProfileImage src={profilePic} alt="Samvrit Srinath" />
+        <ProfileImage src="/assets/profile/profile.png" alt="Samvrit Srinath" />
       </ProfileImageContainer>
       <TextContent>
         <Name

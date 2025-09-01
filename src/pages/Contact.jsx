@@ -7,7 +7,7 @@ import emailjs from '@emailjs/browser';
 import Modal from '../components/Modal';
 
 const ContactContainer = styled.div`
-  padding: 4rem 2rem;
+  padding: 2rem 2rem;
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
@@ -22,6 +22,7 @@ const SectionTitle = styled.h2`
   font-size: 2.5rem;
   color: ${({theme}) => theme.accent};
   margin-bottom: 1rem;
+  margin-top: 0;
 `;
 
 const Subtitle = styled.p`
@@ -72,7 +73,6 @@ const SubmitButton = styled.button`
     transform: translateY(-3px);
   }
 `;
-
 
 const Contact = ({theme}) => {
   const form = useRef();

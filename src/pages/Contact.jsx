@@ -88,9 +88,9 @@ const Contact = ({theme}) => {
   const sendEmail = e => {
     e.preventDefault();
 
-    const SERVICE_ID = 'YOUR_SERVICE_ID';
-    const TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-    const PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+    const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
     emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY).then(
       result => {
@@ -124,7 +124,8 @@ const Contact = ({theme}) => {
       <ContactContainer>
         <motion.div
           initial={{opacity: 0}}
-          animate={{opacity: 1}}
+          whileInView={{opacity: 1}}
+          viewport={{once: true, amount: 0.2}}
           transition={{duration: 0.5}}>
           <SectionTitle>Get In Touch</SectionTitle>
           <Subtitle>

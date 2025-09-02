@@ -51,7 +51,7 @@ export const resumeData = {
             'Developed custom Linux SMBus middleware for I2C hardware transactions, ensuring reliable register-level communication and hardware access across switch platforms.',
             'Created multi-platform testing framework with multiprocessing support for switch wiring simulation, covering all Arista switch models and accelerating CI pipeline execution.',
           ],
-          technologies: ['Python', 'Golang', 'gRPC', 'C', 'Linux'],
+          technologies: ['Python', 'Go', 'gRPC', 'C', 'Linux'],
         },
         {
           role: 'Software Engineer Intern',

@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {FaGithub} from 'react-icons/fa';
@@ -191,6 +192,7 @@ const SeeMoreButton = styled(Link)`
 `;
 
 const Projects = ({content}) => {
+  const [isTitleVisible, setTitleVisible] = useState(false);
   const featuredProjects = content.filter(p => p.featured);
 
   const renderProject = (project, index) => (
@@ -270,7 +272,11 @@ const Projects = ({content}) => {
 
   return (
     <ProjectsContainer>
-      <SectionTitle>Featured Works</SectionTitle>
+      <motion.div
+        onViewportEnter={() => setTitleVisible(true)}
+        viewport={{once: true, amount: 0.3}}>
+        <SectionTitle isVisible={isTitleVisible}>Featured Works</SectionTitle>
+      </motion.div>
       {featuredProjects.map(renderProject)}
       <div style={{textAlign: 'center', marginTop: '2rem'}}>
         <SeeMoreButton to="/project-archive">See More Projects</SeeMoreButton>

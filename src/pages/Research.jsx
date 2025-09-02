@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {FaGithub} from 'react-icons/fa';
@@ -193,6 +194,7 @@ const TechItem = styled.li`
 `;
 
 const Research = ({content, projects}) => {
+  const [isTitleVisible, setTitleVisible] = useState(false);
   const renderResearchRole = (research, index) => {
     const researchProjects = projects.filter(p =>
       (research.projects || []).includes(p.title),
@@ -289,7 +291,11 @@ const Research = ({content, projects}) => {
 
   return (
     <ResearchContainer>
-      <SectionTitle>Research</SectionTitle>
+      <motion.div
+        onViewportEnter={() => setTitleVisible(true)}
+        viewport={{once: true, amount: 0.3}}>
+        <SectionTitle isVisible={isTitleVisible}>Research</SectionTitle>
+      </motion.div>
       {content.map(renderResearchRole)}
     </ResearchContainer>
   );

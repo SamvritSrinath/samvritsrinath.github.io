@@ -1,5 +1,7 @@
+import {useState} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import {motion} from 'framer-motion';
 import Timeline from './Timeline';
 
 const TeachingContainer = styled.section`
@@ -20,11 +22,13 @@ const SectionTitle = styled.h2`
     position: absolute;
     bottom: -10px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) scaleX(${({isVisible}) => (isVisible ? 1 : 0)});
+    transform-origin: center;
     width: 60px;
     height: 3px;
     background: ${({theme}) => theme.accent};
     border-radius: 2px;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
 
   @media (max-width: 768px) {
@@ -34,6 +38,7 @@ const SectionTitle = styled.h2`
 `;
 
 const Teaching = ({teaching}) => {
+  const [isTitleVisible, setTitleVisible] = useState(false);
   // Transform teaching data to match work experience format
   const transformedTeaching = teaching.map(item => ({
     company: item.company,
@@ -44,7 +49,13 @@ const Teaching = ({teaching}) => {
 
   return (
     <TeachingContainer>
-      <SectionTitle>Teaching Experience</SectionTitle>
+      <motion.div
+        onViewportEnter={() => setTitleVisible(true)}
+        viewport={{once: true, amount: 0.3}}>
+        <SectionTitle isVisible={isTitleVisible}>
+          Teaching Experience
+        </SectionTitle>
+      </motion.div>
       <Timeline experience={transformedTeaching} />
     </TeachingContainer>
   );

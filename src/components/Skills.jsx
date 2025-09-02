@@ -1,8 +1,9 @@
+import {useState} from 'react';
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
 
 const SkillsContainer = styled.div`
-  padding: 2rem 2rem;
+  padding: 4rem 2rem;
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
   border-radius: 20px;
@@ -10,31 +11,35 @@ const SkillsContainer = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.1);
 
   @media (max-width: 768px) {
-    padding: 1.5rem;
+    padding: 3rem 1.5rem;
     margin: 1.5rem;
-  }
-
-  @media (max-width: 480px) {
-    padding: 1rem;
-    margin: 1rem;
   }
 `;
 
 const SectionTitle = styled.h2`
   font-size: 2.5rem;
   color: ${({theme}) => theme.accent};
-  margin-bottom: 2rem;
-  margin-top: 0;
+  margin-bottom: 3rem;
   text-align: center;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%) scaleX(${({isVisible}) => (isVisible ? 1 : 0)});
+    transform-origin: center;
+    width: 60px;
+    height: 3px;
+    background: ${({theme}) => theme.accent};
+    border-radius: 2px;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
 
   @media (max-width: 768px) {
     font-size: 2rem;
-    margin-bottom: 1.5rem;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 1.8rem;
-    margin-bottom: 1.25rem;
+    margin-bottom: 2rem;
   }
 `;
 
@@ -86,6 +91,7 @@ const SkillName = styled.p`
 `;
 
 const Skills = () => {
+  const [isTitleVisible, setTitleVisible] = useState(false);
   const skillVariants = {
     hidden: {opacity: 0, y: 20},
     visible: {opacity: 1, y: 0},
@@ -115,7 +121,13 @@ const Skills = () => {
 
   return (
     <SkillsContainer>
-      <SectionTitle>Technologies I Work With</SectionTitle>
+      <motion.div
+        onViewportEnter={() => setTitleVisible(true)}
+        viewport={{once: true, amount: 0.3}}>
+        <SectionTitle isVisible={isTitleVisible}>
+          Technologies I Work With
+        </SectionTitle>
+      </motion.div>
       <SkillsGrid>
         {skillData.map((skill, index) => (
           <SkillCard

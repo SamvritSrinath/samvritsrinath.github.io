@@ -8,6 +8,7 @@ import {
   FaCog,
   FaServer,
   FaLinux,
+  FaMicrochip,
 } from 'react-icons/fa';
 import {
   SiNextdotjs,
@@ -30,6 +31,7 @@ import {
   SiFlask,
   SiOpenai,
   SiAnthropic,
+  SiArm,
 } from 'react-icons/si';
 import {DiJavascript1} from 'react-icons/di';
 
@@ -75,5 +77,8 @@ export const techIconMap = {
   'Three.js': <SiThreedotjs color="#000000" />,
   Flask: <SiFlask color="#000000" />,
   Scapy: <FaPython color="#3776AB" />,
-  'RIPE Atlas': <FaDatabase color="#336791" />,
+  'RIPE Atlas API': <FaDatabase color="#336791" />,
+  ARM: <SiArm color="#0091BD" />,
+  Assembly: <FaMicrochip color="#6E6E6E" />,
+  PIL: <FaPython color="#3776AB" />,
 };

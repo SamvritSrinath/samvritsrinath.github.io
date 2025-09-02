@@ -51,7 +51,7 @@ export const resumeData = {
             'Developed custom Linux SMBus middleware for I2C hardware transactions, ensuring reliable register-level communication and hardware access across switch platforms.',
             'Created multi-platform testing framework with multiprocessing support for switch wiring simulation, covering all Arista switch models and accelerating CI pipeline execution.',
           ],
-          technologies: ['Python', 'Golang', 'gRPC', 'C', 'Linux'],
+          technologies: ['Python', 'Go', 'gRPC', 'C', 'Linux'],
         },
         {
           role: 'Software Engineer Intern',
@@ -102,12 +102,7 @@ export const resumeData = {
       title: 'CS1-LLM Experience Report',
       description:
         'An experience report on the integration of Large Language Models (LLMs) into introductory Computer Science (CS1) curricula, analyzing their impact on student learning and problem-solving methodologies. This work was presented at the ITiCSE 2024 conference.',
-      technologies: [
-        'Educational Research',
-        'Curriculum Design',
-        'Python',
-        'Pandas',
-      ],
+      technologies: ['Curriculum Design', 'Python', 'Pandas'],
       link: '/assets/papers/CS1_LLM_Experience_Report__ITiCSE_2024_.pdf',
       images: [
         '/assets/research/ITiCSE/LLM_workflow_image.png',
@@ -253,7 +248,7 @@ export const resumeData = {
             'Designed and documented a new curriculum for a Pilot Intro to Python course, exposing students to Pandas and Pygame.',
             'Published a paper in the Computers & Education Journal on the efficacy of the new curriculum.',
           ],
-          technologies: ['Python', 'Pandas', 'Pygame', 'Educational Research'],
+          technologies: ['Python', 'Pandas', 'Pygame'],
         },
         {
           role: 'Advanced DSA Tutor (CSE 100)',
@@ -273,7 +268,7 @@ export const resumeData = {
             'Developed assignments using PrairieLearn, focusing on ARM architecture, control flow, and stack frames.',
             'Created a comprehensive debugging guide for a custom ARM emulator to improve student troubleshooting skills.',
           ],
-          technologies: ['C', 'ARM', 'Assembly', 'PrairieLearn'],
+          technologies: ['C', 'ARM', 'Assembly'],
         },
         {
           role: 'Project Mentor (CSE SPIS)',
@@ -298,7 +293,7 @@ export const resumeData = {
             'Mentored over 200 students on course selection, internship strategies, and career paths in various CS domains.',
             'Developed and delivered lesson plans on the foundations of AI and Image Generation.',
           ],
-          technologies: ['Mentorship', 'AI', 'Curriculum Design'],
+          technologies: [],
         },
       ],
     },

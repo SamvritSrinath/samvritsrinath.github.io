@@ -42,7 +42,7 @@ export const resumeData = {
       roles: [
         {
           role: 'Platform SWE Intern (Co-op)',
-          duration: 'Jan 2025 – Present',
+          duration: 'March 2025 – September 2025',
           description: [
             "Architected and developed core software components for next-generation Ethernet switches featuring advanced PHYs and loopback capabilities, contributing to Arista's cutting-edge switching portfolio.",
             'Built comprehensive switch modeling framework translating hardware register specifications into traffic forwarding behaviors, enabling accurate simulation and validation of network operations.',
@@ -161,7 +161,7 @@ export const resumeData = {
         'BigQuery',
         'SQL',
       ],
-      link: '/assets/papers/Operator_IMC25.pdf',
+      link: '/assets/papers/OperatorLLMs_IMC25.pdf',
       images: ['/assets/projects/ip-sage/ip-sage-1.png'],
       featured: false,
       category: 'Research',

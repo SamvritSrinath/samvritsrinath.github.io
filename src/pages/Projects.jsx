@@ -1,287 +1,204 @@
 import {useState} from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import {FaGithub} from 'react-icons/fa';
-import {motion} from 'framer-motion';
-import {Swiper, SwiperSlide} from 'swiper/react';
-import {Navigation, Pagination, Autoplay, EffectFade} from 'swiper/modules';
+import {motion, AnimatePresence} from 'framer-motion';
 import {Link} from 'react-router-dom';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/effect-fade';
-import {techIconMap} from '../utils/techIcons.jsx';
+import {ChevronLeft, ChevronRight, FileText} from 'lucide-react';
+import {techIconMap} from '@/utils/techIcons.jsx';
+import VideoPlayer from '@/components/VideoPlayer';
+import {GlassSection} from '@/components/glass/GlassSection';
+import {GlassButton} from '@/components/glass/GlassButton';
+import {
+  glassVariants,
+  staggerContainer,
+  optimizedViewport,
+} from '@/lib/animations';
+import {cn} from '@/lib/utils';
 
-const CenteredSwiperSlide = styled(SwiperSlide)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+// Image Carousel Component
+const ImageCarousel = ({images, title}) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-const ProjectsContainer = styled.div`
-  padding: 2rem 2rem;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  margin: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-`;
+  const next = () => setCurrentIndex(prev => (prev + 1) % images.length);
+  const prev = () =>
+    setCurrentIndex(curr => (curr - 1 + images.length) % images.length);
 
-const SectionTitle = styled.h2`
-  font-size: 2.5rem;
-  color: ${({theme}) => theme.accent};
-  margin-bottom: 2rem;
-  margin-top: 0;
-  text-align: center;
-`;
-
-const FeaturedProject = styled(motion.div)`
-  display: flex;
-  flex-direction: ${({direction}) => direction || 'row'};
-  gap: 3rem;
-  margin-bottom: 5rem;
-  align-items: center;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
-
-const ProjectImageContainer = styled.div`
-  width: 50%;
-  height: 450px;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  .swiper {
-    width: 100%;
-    height: 100%;
+  if (images.length === 1) {
+    return (
+      <div className="w-full h-full overflow-hidden">
+        <img
+          src={images[0]}
+          alt={title}
+          className="w-full h-full object-cover object-center bg-black/10 backdrop-blur-sm"
+          loading="lazy"
+        />
+      </div>
+    );
   }
 
-  .swiper-button-next,
-  .swiper-button-prev {
-    color: ${({theme}) => theme.accent};
-    background: rgba(0, 0, 0, 0.3);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    top: 50%;
-    transform: translateY(-50%);
-    transition: all 0.3s ease;
+  return (
+    <div className="relative w-full h-full overflow-hidden group">
+      <AnimatePresence mode="wait">
+        <motion.img
+          key={currentIndex}
+          src={images[currentIndex]}
+          alt={`${title} - Image ${currentIndex + 1}`}
+          className="w-full h-full object-cover object-center bg-black/10 backdrop-blur-sm"
+          initial={{opacity: 0}}
+          animate={{opacity: 1}}
+          exit={{opacity: 0}}
+          transition={{duration: 0.3}}
+          loading="lazy"
+        />
+      </AnimatePresence>
 
-    &:hover {
-      background: rgba(0, 0, 0, 0.5);
-      transform: translateY(-50%) scale(1.1);
-    }
+      {/* Navigation Buttons */}
+      <button
+        onClick={prev}
+        className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center opacity-60 hover:opacity-100 transition-opacity duration-300 text-white"
+        aria-label="Previous image">
+        <ChevronLeft className="w-6 h-6" />
+      </button>
 
-    &::after {
-      font-size: 16px;
-      font-weight: bold;
-    }
-  }
+      <button
+        onClick={next}
+        className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center opacity-60 hover:opacity-100 transition-opacity duration-300 text-white"
+        aria-label="Next image">
+        <ChevronRight className="w-6 h-6" />
+      </button>
 
-  .swiper-pagination-bullet-active {
-    background-color: ${({theme}) => theme.accent};
-  }
-
-  .swiper-slide {
-    transition: opacity 0.3s ease-in-out;
-  }
-
-  .swiper-slide-active {
-    opacity: 1;
-  }
-
-  .swiper-slide-prev,
-  .swiper-slide-next {
-    opacity: 0;
-  }
-
-  @media (max-width: 768px) {
-    width: 100%;
-    height: 350px;
-  }
-`;
-
-const ProjectImage = styled.img`
-  display: block;
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  background-color: rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5px);
-`;
-
-const ProjectInfo = styled.div`
-  width: 50%;
-
-  @media (max-width: 768px) {
-    width: 100%;
-  }
-`;
-
-const ProjectTitle = styled.h3`
-  font-size: 2rem;
-  color: ${({theme}) => theme.accent};
-`;
-
-const ProjectDescription = styled.p`
-  color: ${({theme}) => theme.subtext};
-`;
-
-const TechList = styled.ul`
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 1rem 0;
-  align-items: center;
-`;
-
-const TechItem = styled.li`
-  background: ${({theme}) => theme.cardBg};
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  white-space: nowrap;
-  flex-shrink: 0;
-`;
-
-const ProjectLink = styled.a`
-  color: ${({theme}) => theme.accent};
-  text-decoration: none;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-const SeeMoreButton = styled(Link)`
-  display: inline-block;
-  background: ${({theme}) => theme.accent};
-  color: white;
-  padding: 1rem 2rem;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin-top: 2rem;
-  transition: all 0.3s ease;
-  border: 2px solid ${({theme}) => theme.accent};
-
-  &:hover {
-    background: transparent;
-    color: ${({theme}) => theme.accent};
-    transform: translateY(-2px);
-  }
-`;
+      {/* Dots Indicator */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+        {images.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentIndex(index)}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              index === currentIndex
+                ? 'bg-white w-6'
+                : 'bg-white/50 hover:bg-white/75'
+            }`}
+            aria-label={`Go to image ${index + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const Projects = ({content}) => {
-  const [isTitleVisible, setTitleVisible] = useState(false);
-  const featuredProjects = content.filter(p => p.featured);
+  const featuredProjects = content.filter(p => p.featured).slice(0, 4);
 
   const renderProject = (project, index) => (
-    <FeaturedProject
+    <motion.div
       key={index}
-      direction={index % 2 === 0 ? 'row' : 'row-reverse'}
+      className={cn(
+        'flex flex-col md:flex-row gap-8 sm:gap-10 md:gap-12 mb-12 sm:mb-16 md:mb-20 items-center',
+        index % 2 === 1 && 'md:flex-row-reverse',
+      )}
       initial={{opacity: 0, y: 20}}
       whileInView={{opacity: 1, y: 0}}
-      viewport={{once: true}}
-      transition={{duration: 0.6}}>
-      <ProjectImageContainer>
-        {project.images && project.images.length > 0 ? (
-          project.images.length > 1 ? (
-            <Swiper
-              key={project.title}
-              modules={[Navigation, Pagination, Autoplay, EffectFade]}
-              spaceBetween={0}
-              slidesPerView={1}
-              effect="fade"
-              fadeEffect={{crossFade: true}}
-              navigation
-              pagination={{clickable: true}}
-              autoplay={{delay: 5000, disableOnInteraction: false}}
-              allowTouchMove={true}
-              watchSlidesProgress={true}
-              watchOverflow={true}
-              loop={true}
-              initialSlide={0}>
-              {project.images.map((image, i) => (
-                <CenteredSwiperSlide key={i}>
-                  <ProjectImage
-                    src={image}
-                    alt={`${project.title} screenshot ${i + 1}`}
-                  />
-                </CenteredSwiperSlide>
-              ))}
-            </Swiper>
-          ) : (
-            <ProjectImage
-              src={project.images[0]}
-              alt={`${project.title} screenshot`}
-            />
-          )
+      viewport={optimizedViewport}
+      transition={{duration: 0.3}}>
+      {/* Image/Video Container */}
+      <div className="w-full md:w-1/2 h-[250px] sm:h-[350px] md:h-[400px] lg:h-[450px] rounded-xl shadow-glass overflow-hidden relative flex items-center justify-center bg-black/20">
+        {project.video ? (
+          <VideoPlayer url={project.video} className="w-full h-full" />
+        ) : project.images && project.images.length > 0 ? (
+          <ImageCarousel images={project.images} title={project.title} />
         ) : (
-          <ProjectImage
+          <img
             src="https://placehold.co/600x400/1E1E1E/FFFFFF?text=No+Image"
             alt="Placeholder"
+            className="max-w-full max-h-full"
           />
         )}
-      </ProjectImageContainer>
-      <ProjectInfo>
-        <ProjectTitle>{project.title}</ProjectTitle>
-        <ProjectDescription>{project.description}</ProjectDescription>
-        <TechList>
+      </div>
+
+      {/* Project Info */}
+      <div className="w-full md:w-1/2">
+        <h3 className="text-2xl sm:text-3xl font-bold text-primary mb-3 sm:mb-4">
+          {project.title}
+        </h3>
+        <p className="text-sm sm:text-base text-muted-foreground dark:text-white mb-4 sm:mb-6 leading-relaxed">
+          {project.description}
+        </p>
+        <ul className="flex flex-wrap gap-2 mb-4 sm:mb-6 list-none p-0">
           {project.technologies.map((tech, i) => (
-            <TechItem key={i}>
+            <li
+              key={i}
+              className={cn(
+                'flex items-center gap-2',
+                'bg-card/50 backdrop-blur-sm',
+                'px-4 py-2 rounded-lg',
+                'text-sm whitespace-nowrap',
+              )}>
               {techIconMap[tech] || <span></span>}
               <span>{tech}</span>
-            </TechItem>
+            </li>
           ))}
-        </TechList>
-        <ProjectLink
-          href={project.link}
-          target="_blank"
-          rel="noopener noreferrer">
-          {project.category === 'Research' ? (
-            'Link to Paper'
-          ) : (
-            <>
-              <FaGithub color="#333" /> View on GitHub
-            </>
+        </ul>
+        <div className="flex flex-wrap gap-4">
+          {project.link && (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary font-semibold flex items-center gap-2 hover:underline transition-all">
+              {project.link.includes('github.com') ? (
+                <>
+                  <FaGithub /> View on GitHub
+                </>
+              ) : project.link.includes('vercel.app') || project.link.includes('http') ? (
+                'View Live Site'
+              ) : (
+                'View Project'
+              )}
+            </a>
           )}
-        </ProjectLink>
-      </ProjectInfo>
-    </FeaturedProject>
+          {project.paper && (
+            <a
+              href={project.paper}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary font-semibold flex items-center gap-2 hover:underline transition-all">
+              <FileText className="w-4 h-4" />
+              {project.paper.includes('arxiv.org') ? 'View on Arxiv' : 'View Paper'}
+            </a>
+          )}
+        </div>
+      </div>
+    </motion.div>
   );
 
   return (
-    <ProjectsContainer>
+    <GlassSection className="max-w-7xl mx-auto my-6 sm:my-8 px-4 sm:px-6">
       <motion.div
-        onViewportEnter={() => setTitleVisible(true)}
-        viewport={{once: true, amount: 0.3}}>
-        <SectionTitle isVisible={isTitleVisible}>Featured Works</SectionTitle>
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={optimizedViewport}>
+        <motion.h2
+          className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-10 sm:mb-12 md:mb-16 gradient-text-primary"
+          variants={glassVariants}>
+          Featured Works
+        </motion.h2>
+        {featuredProjects.length > 0 ? (
+          <>
+            {featuredProjects.map(renderProject)}
+            <div className="text-center mt-8">
+              <Link to="/projects">
+                <GlassButton variant="primary">View All Projects</GlassButton>
+              </Link>
+            </div>
+          </>
+        ) : (
+          <p className="text-center text-muted-foreground dark:text-white">
+            No featured projects available.
+          </p>
+        )}
       </motion.div>
-      {featuredProjects.map(renderProject)}
-      <div style={{textAlign: 'center', marginTop: '2rem'}}>
-        <SeeMoreButton to="/project-archive">See More Projects</SeeMoreButton>
-      </div>
-    </ProjectsContainer>
+    </GlassSection>
   );
 };
 
@@ -290,9 +207,11 @@ Projects.propTypes = {
     PropTypes.shape({
       title: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
-      images: PropTypes.arrayOf(PropTypes.string).isRequired,
+      images: PropTypes.arrayOf(PropTypes.string),
       technologies: PropTypes.arrayOf(PropTypes.string).isRequired,
-      link: PropTypes.string.isRequired,
+      link: PropTypes.string,
+      paper: PropTypes.string,
+      video: PropTypes.string,
       featured: PropTypes.bool,
       category: PropTypes.string,
     }),

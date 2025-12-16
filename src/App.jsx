@@ -1,118 +1,120 @@
-import {createGlobalStyle, ThemeProvider} from 'styled-components';
+import React, {lazy, Suspense, useMemo} from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import {lightTheme, darkTheme} from './styles/theme';
 import {useTheme} from './hooks/useTheme';
 import MainLayout from './layouts/MainLayout';
-import Home from './pages/Home';
-import About from './pages/About';
-import Projects from './pages/Projects';
-import AllProjects from './pages/AllProjects';
-import Research from './pages/Research';
-import Contact from './pages/Contact';
 import NetworkBackground from './components/NetworkBackground';
 import {resumeData} from './data/resumeData';
-import Skills from './components/Skills';
-import Teaching from './components/Teaching';
 
-const GlobalStyle = createGlobalStyle`
-  body {
-    background-color: ${({theme}) => theme.body};
-    color: ${({theme}) => theme.text};
-    font-family: 'Inter', sans-serif;
-    transition: background-color 0.5s, color 0.5s;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
-  }
+// Skeleton loaders
+import HomeSkeleton from './components/skeletons/HomeSkeleton';
+import TimelineSkeleton from './components/skeletons/TimelineSkeleton';
+import SkillsSkeleton from './components/skeletons/SkillsSkeleton';
+import ProjectsSkeleton from './components/skeletons/ProjectsSkeleton';
+import PublishedResearchSkeleton from './components/skeletons/PublishedResearchSkeleton';
+import UCSDSkeleton from './components/skeletons/UCSDSkeleton';
 
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
-`;
+// Lazy load pages for code splitting
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const Projects = lazy(() => import('./pages/Projects'));
+const ProjectArchive = lazy(() => import('./pages/ProjectArchive'));
+const PublishedResearch = lazy(() =>
+  import('./components/sections/PublishedResearch').then(module => ({
+    default: module.PublishedResearch,
+  })),
+);
+const Skills = lazy(() => import('./components/Skills'));
+const UCSD = lazy(() => import('./components/UCSD'));
+const ResearchPage = lazy(() => import('./pages/ResearchPage'));
 
 function App() {
-  const [theme, themeToggler] = useTheme();
-  const selectedTheme = theme === 'light' ? lightTheme : darkTheme;
+  const {theme, toggleTheme} = useTheme();
+
+  const networkTheme = useMemo(
+    () => ({
+      text: theme === 'dark' ? '#FAFAFA' : '#1a1a1a',
+      accent: '#3498db',
+    }),
+    [theme],
+  );
 
   return (
-    <ThemeProvider theme={selectedTheme}>
-      <GlobalStyle />
-      <NetworkBackground theme={selectedTheme} />
+    <>
+      <NetworkBackground theme={networkTheme} />
       <Router>
         <Routes>
           <Route
             path="/"
             element={
-              <MainLayout theme={theme} toggleTheme={themeToggler}>
-                <section id="home">
-                  <Home content={resumeData.main} />
+              <MainLayout theme={theme} toggleTheme={toggleTheme}>
+                <section id="home" className="min-h-screen">
+                  <Suspense fallback={<HomeSkeleton />}>
+                    <Home content={resumeData.main} />
+                  </Suspense>
                 </section>
-                <section id="experience">
-                  <About
-                    content={{
-                      ...resumeData.about,
-                      workExperience: resumeData.workExperience,
-                      clubs: resumeData.clubs,
-                    }}
-                  />
+                <section id="experience" className="min-h-[600px]">
+                  <Suspense fallback={<TimelineSkeleton />}>
+                    <About
+                      content={{
+                        ...resumeData.about,
+                        workExperience: resumeData.workExperience,
+                      }}
+                    />
+                  </Suspense>
                 </section>
-                <section id="skills">
-                  <Skills skills={resumeData.about.skills} />
+                <section id="skills" className="min-h-[400px]">
+                  <Suspense fallback={<SkillsSkeleton />}>
+                    <Skills />
+                  </Suspense>
                 </section>
-                <section id="projects">
-                  <Projects content={resumeData.projects} />
+                <section id="featured-works" className="min-h-[800px]">
+                  <Suspense fallback={<ProjectsSkeleton />}>
+                    <Projects
+                      content={resumeData.projects
+                        .filter(p => p.featured)
+                        .slice(0, 4)}
+                    />
+                  </Suspense>
                 </section>
-                <section id="research">
-                  <Research
-                    content={resumeData.research}
-                    projects={resumeData.projects}
-                  />
+                <section id="research" className="min-h-[600px]">
+                  <Suspense fallback={<PublishedResearchSkeleton />}>
+                    <PublishedResearch />
+                  </Suspense>
                 </section>
-                <section id="education">
-                  <About
-                    content={{
-                      ...resumeData.about,
-                      workExperience: resumeData.workExperience,
-                      clubs: resumeData.clubs,
-                    }}
-                    showEducationOnly={true}
-                  />
-                </section>
-                <section id="teaching">
-                  <Teaching teaching={resumeData.teaching} />
-                </section>
-                <section id="clubs">
-                  <About
-                    content={{
-                      ...resumeData.about,
-                      workExperience: resumeData.workExperience,
-                      clubs: resumeData.clubs,
-                    }}
-                    showClubsOnly={true}
-                  />
-                </section>
-                <section id="contact">
-                  <Contact
-                    content={resumeData.main.contact}
-                    theme={selectedTheme}
-                  />
+                <section id="ucsd" className="min-h-[600px]">
+                  <Suspense fallback={<UCSDSkeleton />}>
+                    <UCSD
+                      teaching={resumeData.teaching}
+                      clubs={resumeData.clubs}
+                    />
+                  </Suspense>
                 </section>
               </MainLayout>
             }
           />
           <Route
-            path="/project-archive"
+            path="/projects"
             element={
-              <MainLayout theme={theme} toggleTheme={themeToggler}>
-                <AllProjects
-                  content={resumeData.projects.filter(p => !p.featured)}
-                />
+              <MainLayout theme={theme} toggleTheme={toggleTheme}>
+                <Suspense fallback={<ProjectsSkeleton />}>
+                  <ProjectArchive />
+                </Suspense>
+              </MainLayout>
+            }
+          />
+          <Route
+            path="/research"
+            element={
+              <MainLayout theme={theme} toggleTheme={toggleTheme}>
+                <Suspense fallback={<PublishedResearchSkeleton />}>
+                  <ResearchPage />
+                </Suspense>
               </MainLayout>
             }
           />
         </Routes>
       </Router>
-    </ThemeProvider>
+    </>
   );
 }
 

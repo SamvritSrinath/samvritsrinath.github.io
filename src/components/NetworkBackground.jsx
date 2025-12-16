@@ -1,17 +1,7 @@
 import PropTypes from 'prop-types';
-import { useRef, useEffect } from 'react';
-import styled from 'styled-components';
+import {useRef, useEffect} from 'react';
 
-const Canvas = styled.canvas`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-`;
-
-const NetworkBackground = ({ theme }) => {
+const NetworkBackground = ({theme}) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -19,8 +9,27 @@ const NetworkBackground = ({ theme }) => {
     const ctx = canvas.getContext('2d');
     let animationFrameId;
 
-    const particleColor = theme.text;
-    const lineColor = theme.accent;
+    // Theme-aware colors - use theme if provided, otherwise detect theme
+    const isDark =
+      window.matchMedia('(prefers-color-scheme: dark)').matches ||
+      document.documentElement.getAttribute('data-theme') === 'dark';
+
+    // Convert hex to rgba with opacity for subtle effect
+    const hexToRgba = (hex, opacity) => {
+      const r = parseInt(hex.slice(1, 3), 16);
+      const g = parseInt(hex.slice(3, 5), 16);
+      const b = parseInt(hex.slice(5, 7), 16);
+      return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+    };
+
+    const baseTextColor = theme?.text || (isDark ? '#FAFAFA' : '#1a1a1a');
+    const baseAccentColor = theme?.accent || '#3498db';
+    const particleColor = baseTextColor.startsWith('#')
+      ? hexToRgba(baseTextColor, isDark ? 0.4 : 0.3)
+      : baseTextColor;
+    const lineColor = baseAccentColor.startsWith('#')
+      ? hexToRgba(baseAccentColor, isDark ? 0.5 : 0.4)
+      : baseAccentColor;
 
     let particles = [];
     const numParticles = 100;
@@ -42,7 +51,7 @@ const NetworkBackground = ({ theme }) => {
 
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
+
       particles.forEach(p => {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
@@ -53,7 +62,10 @@ const NetworkBackground = ({ theme }) => {
       ctx.beginPath();
       for (let i = 0; i < particles.length; i++) {
         for (let j = i; j < particles.length; j++) {
-          const dist = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
+          const dist = Math.hypot(
+            particles[i].x - particles[j].x,
+            particles[i].y - particles[j].y,
+          );
           if (dist < 100) {
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -90,13 +102,17 @@ const NetworkBackground = ({ theme }) => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', resizeCanvas);
     };
-  }, [theme]); // Rerun effect if theme changes
+  }, [theme]);
 
-  return <Canvas ref={canvasRef} />;
+  return (
+    <div className="fixed top-0 left-0 w-full h-full -z-10 bg-[hsl(var(--bg-primary))]">
+      <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full" />
+    </div>
+  );
 };
 
 NetworkBackground.propTypes = {
-  theme: PropTypes.object.isRequired,
+  theme: PropTypes.object,
 };
 
 export default NetworkBackground;

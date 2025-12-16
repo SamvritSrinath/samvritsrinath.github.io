@@ -1,94 +1,12 @@
 import {useState} from 'react';
-import styled from 'styled-components';
 import {motion} from 'framer-motion';
-
-const SkillsContainer = styled.div`
-  padding: 4rem 2rem;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  margin: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-
-  @media (max-width: 768px) {
-    padding: 3rem 1.5rem;
-    margin: 1.5rem;
-  }
-`;
-
-const SectionTitle = styled.h2`
-  font-size: 2.5rem;
-  color: ${({theme}) => theme.accent};
-  margin-bottom: 3rem;
-  text-align: center;
-  position: relative;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%) scaleX(${({isVisible}) => (isVisible ? 1 : 0)});
-    transform-origin: center;
-    width: 60px;
-    height: 3px;
-    background: ${({theme}) => theme.accent};
-    border-radius: 2px;
-    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-
-  @media (max-width: 768px) {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-  }
-`;
-
-const SkillsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 2rem;
-  max-width: 1000px;
-  margin: 0 auto;
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    gap: 1.5rem;
-  }
-
-  @media (max-width: 480px) {
-    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-    gap: 1rem;
-  }
-`;
-
-const SkillCard = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-`;
-
-const SkillIcon = styled.img`
-  width: 50px;
-  height: 50px;
-  object-fit: contain;
-  transition: transform 0.3s ease;
-
-  ${SkillCard}:hover & {
-    transform: scale(1.1);
-  }
-`;
-
-const SkillName = styled.p`
-  font-weight: 500;
-  color: ${({theme}) => theme.subtext};
-  transition: color 0.3s ease;
-  text-align: center;
-
-  ${SkillCard}:hover & {
-    color: ${({theme}) => theme.text};
-  }
-`;
+import {GlassSection} from '@/components/glass/GlassSection';
+import {GlassCard} from '@/components/glass/GlassCard';
+import {
+  glassVariants,
+  staggerContainer,
+  optimizedViewport,
+} from '@/lib/animations';
 
 const Skills = () => {
   const [isTitleVisible, setTitleVisible] = useState(false);
@@ -120,32 +38,44 @@ const Skills = () => {
   ];
 
   return (
-    <SkillsContainer>
+    <GlassSection className="max-w-5xl mx-auto my-6 sm:my-8 px-4 sm:px-6">
       <motion.div
         onViewportEnter={() => setTitleVisible(true)}
-        viewport={{once: true, amount: 0.3}}>
-        <SectionTitle isVisible={isTitleVisible}>
-          Technologies I Work With
-        </SectionTitle>
+        viewport={optimizedViewport}>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-10 md:mb-12 relative">
+          <span className="gradient-text-primary">
+            Technologies I Work With
+          </span>
+          <motion.div
+            className="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-16 h-1 bg-primary rounded-full"
+            initial={{scaleX: 0}}
+            animate={{scaleX: isTitleVisible ? 1 : 0}}
+            transition={{duration: 0.6, ease: [0.175, 0.885, 0.32, 1.275]}}
+          />
+        </h2>
       </motion.div>
-      <SkillsGrid>
+      <motion.div
+        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 max-w-4xl mx-auto"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={optimizedViewport}>
         {skillData.map((skill, index) => (
-          <SkillCard
-            key={index}
-            variants={skillVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{once: true, amount: 0.5}}
-            transition={{delay: index * 0.1}}>
-            <SkillIcon
-              src={`https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/${skill.icon}.svg`}
-              alt={`${skill.name} logo`}
-            />
-            <SkillName>{skill.name}</SkillName>
-          </SkillCard>
+          <motion.div key={index} variants={glassVariants} className="group">
+            <GlassCard hover className="p-6 flex flex-col items-center gap-4">
+              <img
+                src={`https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/${skill.icon}.svg`}
+                alt={`${skill.name} logo`}
+                className="w-12 h-12 object-contain transition-transform duration-300 group-hover:scale-110"
+              />
+              <p className="font-medium text-muted-foreground text-center transition-colors duration-300 group-hover:text-foreground">
+                {skill.name}
+              </p>
+            </GlassCard>
+          </motion.div>
         ))}
-      </SkillsGrid>
-    </SkillsContainer>
+      </motion.div>
+    </GlassSection>
   );
 };
 

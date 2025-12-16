@@ -1,49 +1,7 @@
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-
-const ModalBackdrop = styled(motion.div)`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 200;
-`;
-
-const ModalContent = styled(motion.div)`
-  background: ${({ theme }) => theme.cardBg};
-  padding: 2rem 3rem;
-  border-radius: 12px;
-  text-align: center;
-  max-width: 400px;
-`;
-
-const ModalTitle = styled.h3`
-  font-size: 1.5rem;
-  color: ${({ theme }) => theme.accent};
-  margin-top: 0;
-`;
-
-const ModalMessage = styled.p`
-  color: ${({ theme }) => theme.text};
-  margin-bottom: 2rem;
-`;
-
-const CloseButton = styled.button`
-  padding: 0.8rem 1.5rem;
-  border-radius: 8px;
-  border: none;
-  background: ${({ theme }) => theme.accent};
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-`;
+import { GlassCard } from '@/components/glass/GlassCard';
+import { GlassButton } from '@/components/glass/GlassButton';
 
 const Modal = ({ show, handleClose, title, message }) => {
   const backdropVariants = {
@@ -52,29 +10,35 @@ const Modal = ({ show, handleClose, title, message }) => {
   };
 
   const modalVariants = {
-    hidden: { y: "-50px", opacity: 0 },
-    visible: { y: "0", opacity: 1, transition: { type: "spring", stiffness: 100 } },
+    hidden: { y: '-50px', opacity: 0 },
+    visible: { y: '0', opacity: 1, transition: { type: 'spring', stiffness: 100 } },
   };
 
   return (
     <AnimatePresence>
       {show && (
-        <ModalBackdrop
+        <motion.div
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-[200]"
           variants={backdropVariants}
           initial="hidden"
           animate="visible"
           exit="hidden"
           onClick={handleClose}
         >
-          <ModalContent
+          <motion.div
             variants={modalVariants}
-            onClick={(e) => e.stopPropagation()} // Prevents closing when clicking inside modal
+            onClick={(e) => e.stopPropagation()}
+            className="max-w-md w-full mx-4"
           >
-            <ModalTitle>{title}</ModalTitle>
-            <ModalMessage>{message}</ModalMessage>
-            <CloseButton onClick={handleClose}>Close</CloseButton>
-          </ModalContent>
-        </ModalBackdrop>
+            <GlassCard variant="heavy" className="p-8 text-center">
+              <h3 className="text-2xl font-bold text-primary mb-4">{title}</h3>
+              <p className="text-foreground mb-8">{message}</p>
+              <GlassButton variant="primary" onClick={handleClose}>
+                Close
+              </GlassButton>
+            </GlassCard>
+          </motion.div>
+        </motion.div>
       )}
     </AnimatePresence>
   );

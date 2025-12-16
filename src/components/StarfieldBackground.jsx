@@ -1,14 +1,4 @@
 import { useRef, useEffect } from 'react';
-import styled from 'styled-components';
-
-const Canvas = styled.canvas`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -2;
-`;
 
 const StarfieldBackground = () => {
   const canvasRef = useRef(null);
@@ -37,12 +27,12 @@ const StarfieldBackground = () => {
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-      
-      stars.forEach(star => {
+
+      stars.forEach((star) => {
         const x = (star.x - canvas.width / 2) * (canvas.width / star.z) + canvas.width / 2;
         const y = (star.y - canvas.height / 2) * (canvas.width / star.z) + canvas.height / 2;
         const r = 2.5 * (canvas.width / star.z);
-        
+
         ctx.beginPath();
         ctx.arc(x, y, r, 0, Math.PI * 2);
         ctx.fill();
@@ -50,7 +40,7 @@ const StarfieldBackground = () => {
     };
 
     const update = () => {
-      stars.forEach(star => {
+      stars.forEach((star) => {
         star.z -= 1;
         if (star.z <= 0) {
           star.z = canvas.width;
@@ -75,7 +65,7 @@ const StarfieldBackground = () => {
     };
   }, []);
 
-  return <Canvas ref={canvasRef} />;
+  return <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full -z-20" />;
 };
 
 export default StarfieldBackground;

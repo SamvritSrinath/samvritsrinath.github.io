@@ -1,80 +1,14 @@
 import {useRef, useState} from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import {motion} from 'framer-motion';
 import emailjs from '@emailjs/browser';
+import Modal from '@/components/Modal';
+import {GlassSection} from '@/components/glass/GlassSection';
+import {GlassInput} from '@/components/glass/GlassInput';
+import {GlassButton} from '@/components/glass/GlassButton';
+import {glassVariants} from '@/lib/animations';
 
-import Modal from '../components/Modal';
-
-const ContactContainer = styled.div`
-  padding: 2rem 2rem;
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  margin: 2rem auto;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-`;
-
-const SectionTitle = styled.h2`
-  font-size: 2.5rem;
-  color: ${({theme}) => theme.accent};
-  margin-bottom: 1rem;
-  margin-top: 0;
-`;
-
-const Subtitle = styled.p`
-  font-size: 1.1rem;
-  color: ${({theme}) => theme.subtext};
-  margin-bottom: 3rem;
-`;
-
-const Form = styled(motion.form)`
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-bottom: 3rem;
-`;
-
-const Input = styled.input`
-  padding: 1rem;
-  border-radius: 8px;
-  border: 1px solid ${({theme}) => theme.headerBorder};
-  background: ${({theme}) => theme.cardBg};
-  color: ${({theme}) => theme.text};
-  font-size: 1rem;
-`;
-
-const TextArea = styled.textarea`
-  padding: 1rem;
-  border-radius: 8px;
-  border: 1px solid ${({theme}) => theme.headerBorder};
-  background: ${({theme}) => theme.cardBg};
-  color: ${({theme}) => theme.text};
-  font-size: 1rem;
-  min-height: 150px;
-  resize: vertical;
-`;
-
-const SubmitButton = styled.button`
-  padding: 1rem;
-  border-radius: 8px;
-  border: none;
-  background: ${({theme}) => theme.accent};
-  color: #fff;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  &:hover {
-    transform: translateY(-3px);
-  }
-`;
-
-const Contact = ({theme}) => {
+const Contact = ({content, theme}) => {
   const form = useRef();
   const [modalInfo, setModalInfo] = useState({
     show: false,
@@ -121,48 +55,49 @@ const Contact = ({theme}) => {
         title={modalInfo.title}
         message={modalInfo.message}
       />
-      <ContactContainer>
+      <GlassSection className="max-w-2xl mx-auto my-8 text-center">
         <motion.div
           initial={{opacity: 0}}
           whileInView={{opacity: 1}}
           viewport={{once: true, amount: 0.2}}
           transition={{duration: 0.5}}>
-          <SectionTitle>Get In Touch</SectionTitle>
-          <Subtitle>
+          <h2 className="text-4xl font-bold text-primary mb-4">Get In Touch</h2>
+          <p className="text-lg text-muted-foreground mb-12">
             Have a question or want to work together? Leave your details and
             I&apos;ll get back to you as soon as possible.
-          </Subtitle>
+          </p>
         </motion.div>
 
-        <Form
+        <motion.form
           ref={form}
           onSubmit={sendEmail}
+          className="flex flex-col gap-6 mb-8"
           initial={{opacity: 0, y: 20}}
           animate={{opacity: 1, y: 0}}
           transition={{duration: 0.6, delay: 0.2}}>
-          <Input
+          <GlassInput
             type="text"
             name="user_name"
             placeholder="Your Name"
             required
-            theme={theme}
           />
-          <Input
+          <GlassInput
             type="email"
             name="user_email"
             placeholder="Your Email"
             required
-            theme={theme}
           />
-          <TextArea
+          <textarea
             name="message"
             placeholder="Your Message"
             required
-            theme={theme}
+            className="flex w-full rounded-xl bg-white/10 dark:bg-black/20 backdrop-blur-xl backdrop-saturate-150 border border-gray-700/30 dark:border-white/10 px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all duration-300 min-h-[150px] resize-y"
           />
-          <SubmitButton type="submit">Send Message</SubmitButton>
-        </Form>
-      </ContactContainer>
+          <GlassButton type="submit" variant="primary" className="w-full">
+            Send Message
+          </GlassButton>
+        </motion.form>
+      </GlassSection>
     </>
   );
 };

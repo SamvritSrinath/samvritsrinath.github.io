@@ -32,6 +32,10 @@ import {
   SiOpenai,
   SiAnthropic,
   SiArm,
+  SiNvidia,
+  SiPostgresql,
+  SiSupabase,
+  SiVercel,
 } from 'react-icons/si';
 import {DiJavascript1} from 'react-icons/di';
 
@@ -81,4 +85,9 @@ export const techIconMap = {
   ARM: <SiArm color="#0091BD" />,
   Assembly: <FaMicrochip color="#6E6E6E" />,
   PIL: <FaPython color="#3776AB" />,
+  CUDA: <SiNvidia color="#76B900" />,
+  'GPU Programming': <SiNvidia color="#76B900" />,
+  PostgreSQL: <SiPostgresql color="#336791" />,
+  Supabase: <SiSupabase color="#336791" />,
+  Vercel: <SiVercel color="#000000" />,
 };

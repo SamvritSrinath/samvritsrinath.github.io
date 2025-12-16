@@ -1,63 +1,48 @@
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { motion } from 'framer-motion';
-
-const ResearchContainer = styled(motion.div)`
-  background: ${({ theme }) => theme.cardBg};
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-`;
-
-const Institution = styled.h3`
-  font-size: 1.8rem;
-  margin: 0;
-`;
-
-const Role = styled.div`
-  margin-top: 1.5rem;
-`;
-
-const RoleTitle = styled.h4`
-  font-size: 1.2rem;
-  color: ${({ theme }) => theme.accent};
-`;
-
-const RoleDuration = styled.p`
-    font-style: italic;
-    color: ${({ theme }) => theme.subtext};
-`;
+import { GlassCard } from '@/components/glass/GlassCard';
+import { glassVariants } from '@/lib/animations';
 
 const Research = ({ research }) => {
   return (
-    <ResearchContainer>
+    <motion.div
+      className="space-y-8"
+      variants={glassVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+    >
       {research.map((item, index) => (
-        <div key={index}>
-          <Institution>{item.institution}</Institution>
-          {item.roles.map((role, i) => (
-            <Role key={i}>
-              <RoleTitle>{role.role}</RoleTitle>
-              <RoleDuration>{role.duration}</RoleDuration>
-            </Role>
-          ))}
-        </div>
+        <GlassCard key={index} variant="light" className="p-8">
+          <h3 className="text-3xl font-bold mb-6">{item.institution}</h3>
+          <div className="space-y-6">
+            {item.roles.map((role, i) => (
+              <div key={i} className="mt-6">
+                <h4 className="text-xl font-semibold text-primary mb-2">{role.role}</h4>
+                <p className="text-muted-foreground dark:text-white italic">
+                  {role.duration}
+                </p>
+              </div>
+            ))}
+          </div>
+        </GlassCard>
       ))}
-    </ResearchContainer>
+    </motion.div>
   );
 };
 
 Research.propTypes = {
-    research: PropTypes.arrayOf(
+  research: PropTypes.arrayOf(
+    PropTypes.shape({
+      institution: PropTypes.string.isRequired,
+      roles: PropTypes.arrayOf(
         PropTypes.shape({
-            institution: PropTypes.string.isRequired,
-            roles: PropTypes.arrayOf(
-                PropTypes.shape({
-                    role: PropTypes.string.isRequired,
-                    duration: PropTypes.string.isRequired,
-                })
-            ).isRequired,
+          role: PropTypes.string.isRequired,
+          duration: PropTypes.string.isRequired,
         })
-    ).isRequired,
+      ).isRequired,
+    })
+  ).isRequired,
 };
 
 export default Research;

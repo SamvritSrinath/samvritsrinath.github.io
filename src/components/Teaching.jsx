@@ -1,41 +1,9 @@
 import {useState} from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import {motion} from 'framer-motion';
-import Timeline from './Timeline';
-
-const TeachingContainer = styled.section`
-  padding: 4rem 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-`;
-
-const SectionTitle = styled.h2`
-  font-size: 2.5rem;
-  color: ${({theme}) => theme.accent};
-  margin-bottom: 3rem;
-  text-align: center;
-  position: relative;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%) scaleX(${({isVisible}) => (isVisible ? 1 : 0)});
-    transform-origin: center;
-    width: 60px;
-    height: 3px;
-    background: ${({theme}) => theme.accent};
-    border-radius: 2px;
-    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-
-  @media (max-width: 768px) {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-  }
-`;
+import Timeline from '@/components/features/Timeline';
+import {GlassSection} from '@/components/glass/GlassSection';
+import {glassVariants} from '@/lib/animations';
 
 const Teaching = ({teaching}) => {
   const [isTitleVisible, setTitleVisible] = useState(false);
@@ -48,16 +16,22 @@ const Teaching = ({teaching}) => {
   }));
 
   return (
-    <TeachingContainer>
+    <GlassSection className="max-w-6xl mx-auto my-8">
       <motion.div
         onViewportEnter={() => setTitleVisible(true)}
         viewport={{once: true, amount: 0.3}}>
-        <SectionTitle isVisible={isTitleVisible}>
-          Teaching Experience
-        </SectionTitle>
+        <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 relative">
+          <span className="gradient-text-primary">Teaching Experience</span>
+          <motion.div
+            className="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-16 h-1 bg-primary rounded-full"
+            initial={{scaleX: 0}}
+            animate={{scaleX: isTitleVisible ? 1 : 0}}
+            transition={{duration: 0.6, ease: [0.175, 0.885, 0.32, 1.275]}}
+          />
+        </h2>
       </motion.div>
       <Timeline experience={transformedTeaching} />
-    </TeachingContainer>
+    </GlassSection>
   );
 };
 

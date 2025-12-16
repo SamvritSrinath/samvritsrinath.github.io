@@ -1,224 +1,60 @@
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {Link} from 'react-scroll';
-import {Link as RouterLink, useLocation, useNavigate} from 'react-router-dom';
-import {FaSun, FaMoon, FaHome, FaBars, FaTimes} from 'react-icons/fa';
+import {Link as RouterLink, useLocation} from 'react-router-dom';
+import {FaSun, FaMoon, FaBars, FaTimes} from 'react-icons/fa';
+import {FolderOpen, FileText, FlaskConical} from 'lucide-react';
+import {cn} from '@/lib/utils';
+import {Switch} from '@/components/ui/switch';
 
-const HeaderContainer = styled.header`
-  position: sticky;
-  top: 0;
-  width: 100%;
-  padding: 1rem 2rem;
-  background: ${({theme}) => theme.headerBg};
-  backdrop-filter: blur(10px);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 100;
-  border-bottom: 1px solid ${({theme}) => theme.headerBorder};
+const navItems = [
+  {id: 'experience', label: 'Experience'},
+  {id: 'featured-works', label: 'Featured Works'},
+  {id: 'research', label: 'Published Research'},
+  {id: 'ucsd', label: '@ UCSD'},
+  {id: 'contact', label: 'Contact'},
+];
 
-  @media (max-width: 768px) {
-    padding: 1rem;
-  }
-
-  @media (max-width: 480px) {
-    padding: 0.75rem;
-  }
-`;
-
-const Logo = styled(Link)`
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: ${({theme}) => theme.accent};
-  text-decoration: none;
-  font-family: 'Roboto Mono', monospace;
-  cursor: pointer;
-`;
-
-const RouterLogo = styled(RouterLink)`
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: ${({theme}) => theme.accent};
-  text-decoration: none;
-  font-family: 'Roboto Mono', monospace;
-  cursor: pointer;
-`;
-
-const Nav = styled.nav`
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-
-  @media (max-width: 768px) {
-    display: none;
-  }
-`;
-
-const MobileNav = styled.nav`
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: ${({theme}) => theme.headerBg};
-  backdrop-filter: blur(20px);
-  z-index: 1000;
-  padding: 2rem;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-
-  @media (max-width: 768px) {
-    display: ${({isOpen}) => (isOpen ? 'flex' : 'none')};
-  }
-`;
-
-const MobileNavLink = styled(Link)`
-  color: ${({theme}) => theme.text};
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 1.2rem;
-  padding: 1rem;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: ${({theme}) => theme.accent};
-  }
-`;
-
-const MobileNavRouterLink = styled(RouterLink)`
-  color: ${({theme}) => theme.text};
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 1.2rem;
-  padding: 1rem;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: ${({theme}) => theme.accent};
-  }
-`;
-
-const MobileMenuButton = styled.button`
-  display: none;
-  background: none;
-  border: none;
-  color: ${({theme}) => theme.text};
-  font-size: 1.5rem;
-  cursor: pointer;
-  padding: 0.5rem;
-
-  @media (max-width: 768px) {
-    display: block;
-  }
-`;
-
-const StyledLink = styled(Link)`
-  color: ${({theme}) => theme.text};
-  text-decoration: none;
-  font-weight: 500;
-  position: relative;
-  cursor: pointer;
-
-  &::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: ${({theme}) => theme.accent};
-    transition: width 0.3s ease;
-  }
-
-  &.active::after,
-  &:hover::after {
-    width: 100%;
-  }
-`;
-
-const RouterStyledLink = styled(RouterLink)`
-  color: ${({theme}) => theme.text};
-  text-decoration: none;
-  font-weight: 500;
-  position: relative;
-  cursor: pointer;
-
-  &::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: ${({theme}) => theme.accent};
-    transition: width 0.3s ease;
-  }
-
-  &.active::after,
-  &:hover::after {
-    width: 100%;
-  }
-`;
-
-const ResumeLink = styled.a`
-  color: ${({theme}) => theme.text};
-  text-decoration: none;
-  font-weight: 500;
-  position: relative;
-  cursor: pointer;
-
-  &::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: ${({theme}) => theme.accent};
-    transition: width 0.3s ease;
-  }
-
-  &:hover::after {
-    width: 100%;
-  }
-`;
-
-const ThemeToggleButton = styled.button`
-  background: none;
-  border: none;
-  color: ${({theme}) => theme.text};
-  font-size: 1.5rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-`;
+const scrollProps = {
+  spy: true,
+  smooth: true,
+  offset: -70,
+  duration: 500,
+};
 
 const Header = ({theme, toggleTheme}) => {
   const location = useLocation();
-  const navigate = useNavigate();
-  const isProjectArchive = location.pathname === '/project-archive';
+  const isHome = location.pathname === '/';
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
 
-  const scrollProps = {
-    spy: true,
-    smooth: true,
-    offset: -70,
-    duration: 500,
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = [
+        'home',
+        'experience',
+        'featured-works',
+        'research',
+        'ucsd',
+        'contact',
+      ];
+      const current = sections.find(section => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          return rect.top <= 100 && rect.bottom >= 100;
+        }
+        return false;
+      });
+      if (current) setActiveSection(current);
+    };
 
-  const handleLogoClick = () => {
-    if (isProjectArchive) {
-      navigate('/');
+    if (isHome) {
+      window.addEventListener('scroll', handleScroll);
+      handleScroll();
+      return () => window.removeEventListener('scroll', handleScroll);
     }
-  };
+  }, [isHome]);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -228,150 +64,258 @@ const Header = ({theme, toggleTheme}) => {
     setIsMobileMenuOpen(false);
   };
 
+  // Google Drive resume link - update this with your actual Drive shareable link
+  const resumeLink =
+    import.meta.env.VITE_RESUME_DRIVE_LINK ||
+    'https://drive.google.com/file/d/YOUR_FILE_ID/view';
+
   return (
     <>
-      <HeaderContainer>
-        {isProjectArchive ? (
-          <RouterLogo to="/" onClick={handleLogoClick}>
-            SS
-          </RouterLogo>
-        ) : (
-          <Logo to="home" {...scrollProps}>
-            SS
-          </Logo>
+      <header
+        className={cn(
+          'sticky top-0 z-50 w-full',
+          'bg-background/80 backdrop-blur-xl',
+          'border-b border-border/40',
+          'supports-[backdrop-filter]:bg-background/60',
         )}
-        <Nav>
-          {!isProjectArchive ? (
-            <>
-              <StyledLink to="home" activeClass="active" {...scrollProps}>
-                Home
-              </StyledLink>
-              <StyledLink to="experience" activeClass="active" {...scrollProps}>
-                Experience
-              </StyledLink>
-              <StyledLink to="skills" activeClass="active" {...scrollProps}>
-                Skills
-              </StyledLink>
-              <StyledLink to="projects" activeClass="active" {...scrollProps}>
-                Featured Works
-              </StyledLink>
-              <StyledLink to="research" activeClass="active" {...scrollProps}>
-                Research
-              </StyledLink>
-              <StyledLink to="education" activeClass="active" {...scrollProps}>
-                Education
-              </StyledLink>
-              <StyledLink to="teaching" activeClass="active" {...scrollProps}>
-                Teaching
-              </StyledLink>
-              <StyledLink to="clubs" activeClass="active" {...scrollProps}>
-                Clubs
-              </StyledLink>
-              <StyledLink to="contact" activeClass="active" {...scrollProps}>
-                Contact
-              </StyledLink>
-            </>
-          ) : (
-            <>
-              <RouterStyledLink to="/">
-                <FaHome /> Home
-              </RouterStyledLink>
-              <RouterStyledLink to="/project-archive" className="active">
-                Project Archive
-              </RouterStyledLink>
-            </>
-          )}
-          <ResumeLink
-            href="/Samvrit_Srinath_Resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer">
-            Resume
-          </ResumeLink>
-        </Nav>
-        <MobileMenuButton onClick={toggleMobileMenu}>
-          {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
-        </MobileMenuButton>
-        <ThemeToggleButton onClick={toggleTheme}>
-          {theme === 'light' ? <FaMoon /> : <FaSun />}
-        </ThemeToggleButton>
-      </HeaderContainer>
+        style={{
+          background:
+            theme === 'dark'
+              ? 'rgba(18, 18, 18, 0.6)'
+              : 'rgba(255, 255, 255, 0.6)',
+          backdropFilter: 'blur(20px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+        }}>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between">
+            {/* Logo */}
+            {isHome ? (
+              <Link
+                to="home"
+                {...scrollProps}
+                className="text-2xl font-bold font-mono text-primary hover:text-primary/80 transition-colors cursor-pointer">
+                SS
+              </Link>
+            ) : (
+              <RouterLink
+                to="/"
+                className="text-2xl font-bold font-mono text-primary hover:text-primary/80 transition-colors">
+                SS
+              </RouterLink>
+            )}
+
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center gap-6">
+              {isHome ? (
+                <>
+                  {navItems.map(item => (
+                    <Link
+                      key={item.id}
+                      to={item.id}
+                      activeClass="active"
+                      {...scrollProps}
+                      className={cn(
+                        'relative text-sm font-medium transition-colors',
+                        'hover:text-primary',
+                        'after:absolute after:bottom-0 after:left-0',
+                        'after:h-0.5 after:w-0 after:bg-primary',
+                        'after:transition-all after:duration-300',
+                        activeSection === item.id &&
+                          'text-primary after:w-full',
+                        'hover:after:w-full',
+                      )}>
+                      {item.label}
+                    </Link>
+                  ))}
+
+                  {/* Separator */}
+                  <div className="w-px h-6 bg-blue-400/30" />
+
+                  {/* External links with icons */}
+                  <div className="flex items-center gap-2">
+                    <RouterLink
+                      to="/research"
+                      className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 dark:bg-black/20 dark:hover:bg-black/30 border border-transparent hover:border-blue-400/30 transition-all duration-500"
+                      aria-label="View Research Projects">
+                      <FlaskConical className="w-4 h-4 text-blue-500 group-hover:text-blue-400 transition-colors duration-300" />
+                      <span className="text-sm font-medium hidden md:inline">
+                        Research
+                      </span>
+                    </RouterLink>
+                    <RouterLink
+                      to="/projects"
+                      className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 dark:bg-black/20 dark:hover:bg-black/30 border border-transparent hover:border-blue-400/30 transition-all duration-500"
+                      aria-label="View All Projects">
+                      <FolderOpen className="w-4 h-4 text-blue-500 group-hover:text-blue-400 transition-colors duration-300" />
+                      <span className="text-sm font-medium hidden md:inline">
+                        Projects
+                      </span>
+                    </RouterLink>
+                    <a
+                      href={resumeLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 dark:bg-black/20 dark:hover:bg-black/30 border border-transparent hover:border-blue-400/30 transition-all duration-500"
+                      aria-label="Download Resume">
+                      <FileText className="w-4 h-4 text-blue-500 group-hover:text-blue-400 transition-colors duration-300" />
+                      <span className="text-sm font-medium hidden md:inline">
+                        Resume
+                      </span>
+                    </a>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <RouterLink
+                    to="/"
+                    className="text-sm font-medium hover:text-primary transition-colors">
+                    Home
+                  </RouterLink>
+                  <RouterLink
+                    to="/projects"
+                    className={cn(
+                      'text-sm font-medium transition-colors',
+                      location.pathname === '/projects'
+                        ? 'text-primary'
+                        : 'hover:text-primary',
+                    )}>
+                    Projects
+                  </RouterLink>
+                  <RouterLink
+                    to="/research"
+                    className={cn(
+                      'text-sm font-medium transition-colors',
+                      location.pathname === '/research'
+                        ? 'text-primary'
+                        : 'hover:text-primary',
+                    )}>
+                    Research
+                  </RouterLink>
+                </>
+              )}
+
+              {/* Theme Toggle */}
+              <div className="flex items-center gap-2 ml-4 pl-4 border-l border-border">
+                <FaSun className="h-4 w-4 text-muted-foreground" />
+                <Switch
+                  checked={theme === 'dark'}
+                  onCheckedChange={checked => {
+                    if (checked && theme !== 'dark') toggleTheme();
+                    if (!checked && theme !== 'light') toggleTheme();
+                  }}
+                  aria-label="Toggle theme"
+                />
+                <FaMoon className="h-4 w-4 text-muted-foreground" />
+              </div>
+            </nav>
+
+            {/* Mobile Menu Button */}
+            <div className="flex md:hidden items-center gap-4">
+              <button
+                onClick={toggleTheme}
+                className="p-2 hover:bg-accent rounded-md transition-colors"
+                aria-label="Toggle theme">
+                {theme === 'light' ? <FaMoon /> : <FaSun />}
+              </button>
+              <button
+                onClick={toggleMobileMenu}
+                className="p-2 hover:bg-accent rounded-md transition-colors"
+                aria-label="Toggle menu">
+                {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
 
       {/* Mobile Navigation */}
-      <MobileNav isOpen={isMobileMenuOpen}>
-        {!isProjectArchive ? (
-          <>
-            <MobileNavLink to="home" onClick={closeMobileMenu} {...scrollProps}>
-              Home
-            </MobileNavLink>
-            <MobileNavLink
-              to="experience"
-              onClick={closeMobileMenu}
-              {...scrollProps}>
-              Experience
-            </MobileNavLink>
-            <MobileNavLink
-              to="skills"
-              onClick={closeMobileMenu}
-              {...scrollProps}>
-              Skills
-            </MobileNavLink>
-            <MobileNavLink
-              to="projects"
-              onClick={closeMobileMenu}
-              {...scrollProps}>
-              Featured Works
-            </MobileNavLink>
-            <MobileNavLink
-              to="research"
-              onClick={closeMobileMenu}
-              {...scrollProps}>
-              Research
-            </MobileNavLink>
-            <MobileNavLink
-              to="education"
-              onClick={closeMobileMenu}
-              {...scrollProps}>
-              Education
-            </MobileNavLink>
-            <MobileNavLink
-              to="teaching"
-              onClick={closeMobileMenu}
-              {...scrollProps}>
-              Teaching
-            </MobileNavLink>
-            <MobileNavLink
-              to="clubs"
-              onClick={closeMobileMenu}
-              {...scrollProps}>
-              Clubs
-            </MobileNavLink>
-            <MobileNavLink
-              to="contact"
-              onClick={closeMobileMenu}
-              {...scrollProps}>
-              Contact
-            </MobileNavLink>
-          </>
-        ) : (
-          <>
-            <MobileNavRouterLink to="/" onClick={closeMobileMenu}>
-              <FaHome /> Home
-            </MobileNavRouterLink>
-            <MobileNavRouterLink
-              to="/project-archive"
-              onClick={closeMobileMenu}>
-              Project Archive
-            </MobileNavRouterLink>
-          </>
-        )}
-        <ResumeLink
-          href="/Samvrit_Srinath_Resume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={closeMobileMenu}>
-          Resume
-        </ResumeLink>
-      </MobileNav>
+      {isMobileMenuOpen && (
+        <div
+          className={cn(
+            'fixed inset-0 z-50 md:hidden',
+            'bg-background/95 backdrop-blur-xl',
+            'supports-[backdrop-filter]:bg-background/80',
+          )}
+          style={{
+            background:
+              theme === 'dark'
+                ? 'rgba(18, 18, 18, 0.95)'
+                : 'rgba(255, 255, 255, 0.95)',
+            backdropFilter: 'blur(20px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+          }}>
+          <div className="flex flex-col items-center justify-center h-full gap-6">
+            {isHome ? (
+              <>
+                {navItems.map(item => (
+                  <Link
+                    key={item.id}
+                    to={item.id}
+                    onClick={closeMobileMenu}
+                    {...scrollProps}
+                    className="text-xl font-medium hover:text-primary transition-colors">
+                    {item.label}
+                  </Link>
+                ))}
+                <RouterLink
+                  to="/research"
+                  onClick={closeMobileMenu}
+                  className="flex items-center gap-2 text-xl font-medium hover:text-primary transition-colors">
+                  <FlaskConical className="w-5 h-5" />
+                  Research
+                </RouterLink>
+                <RouterLink
+                  to="/projects"
+                  onClick={closeMobileMenu}
+                  className="flex items-center gap-2 text-xl font-medium hover:text-primary transition-colors">
+                  <FolderOpen className="w-5 h-5" />
+                  Projects
+                </RouterLink>
+                <a
+                  href={resumeLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={closeMobileMenu}
+                  className="flex items-center gap-2 text-xl font-medium hover:text-primary transition-colors">
+                  <FileText className="w-5 h-5" />
+                  Resume
+                </a>
+              </>
+            ) : (
+              <>
+                <RouterLink
+                  to="/"
+                  onClick={closeMobileMenu}
+                  className="text-xl font-medium hover:text-primary transition-colors">
+                  Home
+                </RouterLink>
+                <RouterLink
+                  to="/projects"
+                  onClick={closeMobileMenu}
+                  className={cn(
+                    'text-xl font-medium transition-colors',
+                    location.pathname === '/projects'
+                      ? 'text-primary'
+                      : 'hover:text-primary',
+                  )}>
+                  Projects
+                </RouterLink>
+                <RouterLink
+                  to="/research"
+                  onClick={closeMobileMenu}
+                  className={cn(
+                    'text-xl font-medium transition-colors',
+                    location.pathname === '/research'
+                      ? 'text-primary'
+                      : 'hover:text-primary',
+                  )}>
+                  Research
+                </RouterLink>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </>
   );
 };

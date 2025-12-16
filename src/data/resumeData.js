@@ -103,7 +103,7 @@ export const resumeData = {
       description:
         'An experience report on the integration of Large Language Models (LLMs) into introductory Computer Science (CS1) curricula, analyzing their impact on student learning and problem-solving methodologies. This work was presented at the ITiCSE 2024 conference.',
       technologies: ['Curriculum Design', 'Python', 'Pandas'],
-      link: '/assets/papers/CS1_LLM_Experience_Report__ITiCSE_2024_.pdf',
+      link: 'https://arxiv.org/abs/2406.15379',
       images: [
         '/assets/research/ITiCSE/LLM_workflow_image.png',
         '/assets/research/ITiCSE/copilot_comfort.png',
@@ -146,7 +146,7 @@ export const resumeData = {
         '/assets/projects/traceroutes/types_of_targets.png',
       ],
       featured: false,
-      category: 'Research',
+      category: 'Systems',
     },
     {
       title: 'IP-Sage',
@@ -164,6 +164,55 @@ export const resumeData = {
       link: '/assets/papers/OperatorLLMs_IMC25.pdf',
       images: ['/assets/projects/ip-sage/ip-sage-1.png'],
       featured: false,
+      category: 'Research',
+    },
+    {
+      title: 'HoneyLLM - LLM Deterrence and Detection Platform',
+      description:
+        'A canary-based framework for detecting and deterring LLM usage during virtual technical interviews. The platform implements multiple detection modalities including ASCII smuggling, canary URL visitation, solution watermarks, and OCR resistance. Built as part of CSE 291Y research, this system transforms assessment content into an active defense layer, achieving high attack success rates across multiple LLM providers.',
+      technologies: [
+        'Next.js',
+        'TypeScript',
+        'Supabase',
+        'Vercel',
+        'Python',
+        'PostgreSQL',
+      ],
+      link: 'https://interview-platform-ecru-gamma.vercel.app',
+      paper: '/assets/projects/interview-site/HoneyLLM.pdf',
+      images: [
+        '/assets/projects/interview-site/Gemini.png',
+        '/assets/projects/interview-site/Qwen.jpg',
+        '/assets/projects/interview-site/Claude.jpg',
+        '/assets/projects/interview-site/Cluely.jpg',
+        '/assets/projects/interview-site/Results.jpg',
+        '/assets/projects/interview-site/HoneyBucket.png',
+        '/assets/projects/interview-site/SystemDesign.png',
+      ],
+      video: null, // Add video URL when available
+      featured: true,
+      category: 'Personal',
+    },
+    {
+      title: 'GPU Megakernels: Optimizing LLM Performance',
+      description:
+        'Research on improving ThunderKittens framework for GPU megakernel optimization. Developed a runtime-managed shared-memory architecture to address memory bottlenecks and enable more efficient inter-op memory sharing. Analyzed complex kernels including Llama-8B with batching, identifying opportunities for memory movement optimization within ThunderKittens kernels.',
+      technologies: [
+        'CUDA',
+        'C++',
+        'ThunderKittens',
+        'GPU Programming',
+        'LLM Optimization',
+      ],
+      paper: '/assets/projects/gpu-kernels/Paper.pdf',
+      images: [
+        '/assets/projects/gpu-kernels/Delay.jpg',
+        '/assets/projects/gpu-kernels/Llama.jpg',
+        '/assets/projects/gpu-kernels/MatrixMult.jpg',
+        '/assets/projects/gpu-kernels/ProcessorPipeline.jpg',
+      ],
+      video: null, // Add video URL when available
+      featured: true,
       category: 'Research',
     },
     {

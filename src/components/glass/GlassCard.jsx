@@ -1,4 +1,5 @@
 import {motion} from 'framer-motion';
+import PropTypes from 'prop-types';
 import {cn} from '@/lib/utils';
 import {glassVariants} from '@/lib/animations';
 
@@ -45,4 +46,12 @@ export const GlassCard = ({
       {children}
     </motion.div>
   );
+};
+
+GlassCard.propTypes = {
+  children: PropTypes.node.isRequired,
+  variant: PropTypes.oneOf(['default', 'heavy', 'light']),
+  border: PropTypes.oneOf(['default', 'glow', 'gradient']),
+  hover: PropTypes.bool,
+  className: PropTypes.string,
 };

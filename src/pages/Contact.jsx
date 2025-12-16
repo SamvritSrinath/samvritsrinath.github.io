@@ -1,14 +1,12 @@
 import {useRef, useState} from 'react';
-import PropTypes from 'prop-types';
 import {motion} from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import Modal from '@/components/Modal';
 import {GlassSection} from '@/components/glass/GlassSection';
 import {GlassInput} from '@/components/glass/GlassInput';
 import {GlassButton} from '@/components/glass/GlassButton';
-import {glassVariants} from '@/lib/animations';
 
-const Contact = ({content, theme}) => {
+const Contact = () => {
   const form = useRef();
   const [modalInfo, setModalInfo] = useState({
     show: false,
@@ -27,8 +25,7 @@ const Contact = ({content, theme}) => {
     const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
     emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY).then(
-      result => {
-        console.log(result.text);
+      () => {
         setModalInfo({
           show: true,
           title: 'Success!',
@@ -36,8 +33,7 @@ const Contact = ({content, theme}) => {
         });
         form.current.reset();
       },
-      error => {
-        console.log(error.text);
+      () => {
         setModalInfo({
           show: true,
           title: 'Error',
@@ -102,12 +98,5 @@ const Contact = ({content, theme}) => {
   );
 };
 
-Contact.propTypes = {
-  content: PropTypes.shape({
-    linkedin: PropTypes.string.isRequired,
-    github: PropTypes.string.isRequired,
-  }).isRequired,
-  theme: PropTypes.object.isRequired,
-};
 
 export default Contact;

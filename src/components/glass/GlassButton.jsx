@@ -1,4 +1,5 @@
 import {motion} from 'framer-motion';
+import PropTypes from 'prop-types';
 import {cn} from '@/lib/utils';
 
 export const GlassButton = ({
@@ -52,4 +53,11 @@ export const GlassButton = ({
       <span className="relative z-10">{children}</span>
     </motion.button>
   );
+};
+
+GlassButton.propTypes = {
+  children: PropTypes.node.isRequired,
+  variant: PropTypes.oneOf(['primary', 'secondary', 'ghost']),
+  size: PropTypes.oneOf(['sm', 'md', 'lg']),
+  className: PropTypes.string,
 };

@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import PropTypes from 'prop-types';
 import {motion} from 'framer-motion';
 import Timeline from '@/components/features/Timeline';
@@ -6,10 +5,8 @@ import Clubs from '@/components/Clubs';
 import {GlassSection} from '@/components/glass/GlassSection';
 import {
   glassVariants,
-  staggerContainer,
   optimizedViewport,
 } from '@/lib/animations';
-import {cn} from '@/lib/utils';
 
 const UCSD = ({teaching, clubs}) => {
   // Transform teaching data to match work experience format

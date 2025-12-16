@@ -1,4 +1,5 @@
 import { lazy, Suspense } from 'react';
+import PropTypes from 'prop-types';
 import { cn } from '@/lib/utils';
 
 const ReactPlayer = lazy(() => import('react-player'));
@@ -26,6 +27,11 @@ const VideoPlayer = ({ url, className, ...props }) => {
       </Suspense>
     </div>
   );
+};
+
+VideoPlayer.propTypes = {
+  url: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default VideoPlayer;

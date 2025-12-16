@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react';
+import PropTypes from 'prop-types';
 import {motion, AnimatePresence} from 'framer-motion';
 import {Link} from 'react-router-dom';
 import {
@@ -138,6 +139,11 @@ const ImageCarousel = ({images, title}) => {
       </div>
     </div>
   );
+};
+
+ImageCarousel.propTypes = {
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export const ProjectArchive = () => {

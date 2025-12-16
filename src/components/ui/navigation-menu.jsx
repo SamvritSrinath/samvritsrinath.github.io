@@ -1,4 +1,5 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
 import { cn } from '@/lib/utils';
 
@@ -16,6 +17,11 @@ const NavigationMenu = React.forwardRef(({ className, children, ...props }, ref)
 ));
 NavigationMenu.displayName = NavigationMenuPrimitive.Root.displayName;
 
+NavigationMenu.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.node.isRequired,
+};
+
 const NavigationMenuList = React.forwardRef(({ className, ...props }, ref) => (
   <NavigationMenuPrimitive.List
     ref={ref}
@@ -27,6 +33,10 @@ const NavigationMenuList = React.forwardRef(({ className, ...props }, ref) => (
   />
 ));
 NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName;
+
+NavigationMenuList.propTypes = {
+  className: PropTypes.string,
+};
 
 const NavigationMenuItem = NavigationMenuPrimitive.Item;
 
@@ -41,6 +51,10 @@ const NavigationMenuLink = React.forwardRef(({ className, ...props }, ref) => (
   />
 ));
 NavigationMenuLink.displayName = NavigationMenuPrimitive.Link.displayName;
+
+NavigationMenuLink.propTypes = {
+  className: PropTypes.string,
+};
 
 export {
   NavigationMenu,

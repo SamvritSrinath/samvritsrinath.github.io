@@ -1,4 +1,5 @@
 import {forwardRef} from 'react';
+import PropTypes from 'prop-types';
 import {cn} from '@/lib/utils';
 
 export const GlassInput = forwardRef(({className, ...props}, ref) => {
@@ -22,5 +23,9 @@ export const GlassInput = forwardRef(({className, ...props}, ref) => {
   );
 });
 GlassInput.displayName = 'GlassInput';
+
+GlassInput.propTypes = {
+  className: PropTypes.string,
+};
 
 

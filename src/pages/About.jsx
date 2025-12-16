@@ -4,7 +4,6 @@ import Timeline from '@/components/features/Timeline';
 import Clubs from '@/components/Clubs';
 import {GlassSection} from '@/components/glass/GlassSection';
 import {glassVariants, optimizedViewport} from '@/lib/animations';
-import {cn} from '@/lib/utils';
 
 const About = ({content, showEducationOnly, showClubsOnly}) => {
   const {education, workExperience, clubs} = content;

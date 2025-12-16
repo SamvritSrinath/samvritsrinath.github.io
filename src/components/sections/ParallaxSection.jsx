@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import PropTypes from 'prop-types';
 
 export const ParallaxSection = ({ children, speed = 0.5 }) => {
   const ref = useRef(null);
@@ -16,6 +17,11 @@ export const ParallaxSection = ({ children, speed = 0.5 }) => {
       {children}
     </motion.div>
   );
+};
+
+ParallaxSection.propTypes = {
+  children: PropTypes.node.isRequired,
+  speed: PropTypes.number,
 };
 
 

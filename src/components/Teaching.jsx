@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {motion} from 'framer-motion';
 import Timeline from '@/components/features/Timeline';
 import {GlassSection} from '@/components/glass/GlassSection';
-import {glassVariants} from '@/lib/animations';
 
 const Teaching = ({teaching}) => {
   const [isTitleVisible, setTitleVisible] = useState(false);

@@ -86,6 +86,11 @@ const ImageCarousel = ({images, title}) => {
   );
 };
 
+ImageCarousel.propTypes = {
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
+  title: PropTypes.string.isRequired,
+};
+
 const Projects = ({content}) => {
   const featuredProjects = content.filter(p => p.featured).slice(0, 4);
 

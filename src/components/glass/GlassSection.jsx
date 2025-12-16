@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import {cn} from '@/lib/utils';
 
 export const GlassSection = ({children, className, ...props}) => {
@@ -16,4 +17,9 @@ export const GlassSection = ({children, className, ...props}) => {
       {children}
     </section>
   );
+};
+
+GlassSection.propTypes = {
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
 };

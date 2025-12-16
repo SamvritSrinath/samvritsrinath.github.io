@@ -1,4 +1,4 @@
-import { motion, useScroll, useVelocity, useTransform } from 'framer-motion';
+import { motion, useScroll, useVelocity } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 export const NebulousBackground = () => {

@@ -10,10 +10,6 @@ import {
 
 const Skills = () => {
   const [isTitleVisible, setTitleVisible] = useState(false);
-  const skillVariants = {
-    hidden: {opacity: 0, y: 20},
-    visible: {opacity: 1, y: 0},
-  };
 
   const skillData = [
     {name: 'Python', icon: 'python/python-original'},

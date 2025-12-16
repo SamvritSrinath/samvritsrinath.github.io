@@ -1,4 +1,4 @@
-import React, {lazy, Suspense, useMemo} from 'react';
+import {lazy, Suspense, useMemo} from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import {useTheme} from './hooks/useTheme';
 import MainLayout from './layouts/MainLayout';

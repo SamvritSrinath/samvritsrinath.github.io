@@ -2,10 +2,9 @@ import PropTypes from 'prop-types';
 import {useState, useEffect} from 'react';
 import {Link} from 'react-scroll';
 import {Link as RouterLink, useLocation} from 'react-router-dom';
-import {FaSun, FaMoon, FaBars, FaTimes} from 'react-icons/fa';
+import {FaBars, FaTimes} from 'react-icons/fa';
 import {FolderOpen, FileText, FlaskConical} from 'lucide-react';
 import {cn} from '@/lib/utils';
-import {Switch} from '@/components/ui/switch';
 
 const navItems = [
   {id: 'experience', label: 'Experience'},
@@ -22,7 +21,7 @@ const scrollProps = {
   duration: 500,
 };
 
-const Header = ({theme, toggleTheme}) => {
+const Header = ({theme}) => {
   const location = useLocation();
   const isHome = location.pathname === '/';
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -194,29 +193,10 @@ const Header = ({theme, toggleTheme}) => {
                 </>
               )}
 
-              {/* Theme Toggle */}
-              <div className="flex items-center gap-2 ml-4 pl-4 border-l border-border">
-                <FaSun className="h-4 w-4 text-muted-foreground" />
-                <Switch
-                  checked={theme === 'dark'}
-                  onCheckedChange={checked => {
-                    if (checked && theme !== 'dark') toggleTheme();
-                    if (!checked && theme !== 'light') toggleTheme();
-                  }}
-                  aria-label="Toggle theme"
-                />
-                <FaMoon className="h-4 w-4 text-muted-foreground" />
-              </div>
             </nav>
 
             {/* Mobile Menu Button */}
             <div className="flex md:hidden items-center gap-4">
-              <button
-                onClick={toggleTheme}
-                className="p-2 hover:bg-accent rounded-md transition-colors"
-                aria-label="Toggle theme">
-                {theme === 'light' ? <FaMoon /> : <FaSun />}
-              </button>
               <button
                 onClick={toggleMobileMenu}
                 className="p-2 hover:bg-accent rounded-md transition-colors"
@@ -322,7 +302,6 @@ const Header = ({theme, toggleTheme}) => {
 
 Header.propTypes = {
   theme: PropTypes.string.isRequired,
-  toggleTheme: PropTypes.func.isRequired,
 };
 
 export default Header;

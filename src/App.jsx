@@ -28,7 +28,7 @@ const UCSD = lazy(() => import('./components/UCSD'));
 const ResearchPage = lazy(() => import('./pages/ResearchPage'));
 
 function App() {
-  const {theme, toggleTheme} = useTheme();
+  const {theme} = useTheme();
 
   const networkTheme = useMemo(
     () => ({
@@ -46,7 +46,7 @@ function App() {
           <Route
             path="/"
             element={
-              <MainLayout theme={theme} toggleTheme={toggleTheme}>
+              <MainLayout theme={theme}>
                 <section id="home" className="min-h-screen">
                   <Suspense fallback={<HomeSkeleton />}>
                     <Home content={resumeData.main} />
@@ -95,7 +95,7 @@ function App() {
           <Route
             path="/projects"
             element={
-              <MainLayout theme={theme} toggleTheme={toggleTheme}>
+              <MainLayout theme={theme}>
                 <Suspense fallback={<ProjectsSkeleton />}>
                   <ProjectArchive />
                 </Suspense>
@@ -105,7 +105,7 @@ function App() {
           <Route
             path="/research"
             element={
-              <MainLayout theme={theme} toggleTheme={toggleTheme}>
+              <MainLayout theme={theme}>
                 <Suspense fallback={<PublishedResearchSkeleton />}>
                   <ResearchPage />
                 </Suspense>

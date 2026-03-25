@@ -1,8 +1,8 @@
-import {lazy, Suspense, useMemo} from 'react';
+import {lazy, Suspense} from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import {useTheme} from './hooks/useTheme';
 import MainLayout from './layouts/MainLayout';
-import NetworkBackground from './components/NetworkBackground';
+import {OptimizedCosmicBackground} from './components/space/OptimizedCosmicBackground';
 import {resumeData} from './data/resumeData';
 
 // Skeleton loaders
@@ -26,33 +26,24 @@ const PublishedResearch = lazy(() =>
 const Skills = lazy(() => import('./components/Skills'));
 const UCSD = lazy(() => import('./components/UCSD'));
 const ResearchPage = lazy(() => import('./pages/ResearchPage'));
+const UCSDPage = lazy(() => import('./pages/UCSDPage'));
 
 function App() {
   const {theme} = useTheme();
 
-  const networkTheme = useMemo(
-    () => ({
-      text: theme === 'dark' ? '#FAFAFA' : '#1a1a1a',
-      accent: '#3498db',
-    }),
-    [theme],
-  );
-
   return (
     <>
-      <NetworkBackground theme={networkTheme} />
+      <OptimizedCosmicBackground />
       <Router>
         <Routes>
           <Route
             path="/"
             element={
               <MainLayout theme={theme}>
-                <section id="home" className="min-h-screen">
-                  <Suspense fallback={<HomeSkeleton />}>
-                    <Home content={resumeData.main} />
-                  </Suspense>
-                </section>
-                <section id="experience" className="min-h-[600px]">
+                <Suspense fallback={<HomeSkeleton />}>
+                  <Home content={resumeData.main} />
+                </Suspense>
+                <section id="experience">
                   <Suspense fallback={<TimelineSkeleton />}>
                     <About
                       content={{
@@ -62,12 +53,12 @@ function App() {
                     />
                   </Suspense>
                 </section>
-                <section id="skills" className="min-h-[400px]">
+                <section id="skills">
                   <Suspense fallback={<SkillsSkeleton />}>
                     <Skills />
                   </Suspense>
                 </section>
-                <section id="featured-works" className="min-h-[800px]">
+                <section id="featured-works">
                   <Suspense fallback={<ProjectsSkeleton />}>
                     <Projects
                       content={resumeData.projects
@@ -76,17 +67,9 @@ function App() {
                     />
                   </Suspense>
                 </section>
-                <section id="research" className="min-h-[600px]">
+                <section id="research">
                   <Suspense fallback={<PublishedResearchSkeleton />}>
                     <PublishedResearch />
-                  </Suspense>
-                </section>
-                <section id="ucsd" className="min-h-[600px]">
-                  <Suspense fallback={<UCSDSkeleton />}>
-                    <UCSD
-                      teaching={resumeData.teaching}
-                      clubs={resumeData.clubs}
-                    />
                   </Suspense>
                 </section>
               </MainLayout>
@@ -108,6 +91,19 @@ function App() {
               <MainLayout theme={theme}>
                 <Suspense fallback={<PublishedResearchSkeleton />}>
                   <ResearchPage />
+                </Suspense>
+              </MainLayout>
+            }
+          />
+          <Route
+            path="/ucsd"
+            element={
+              <MainLayout theme={theme}>
+                <Suspense fallback={<UCSDSkeleton />}>
+                  <UCSD
+                    teaching={resumeData.teaching}
+                    clubs={resumeData.clubs}
+                  />
                 </Suspense>
               </MainLayout>
             }

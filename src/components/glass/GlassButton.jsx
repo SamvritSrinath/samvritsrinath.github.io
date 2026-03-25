@@ -10,46 +10,37 @@ export const GlassButton = ({
   ...props
 }) => {
   const sizes = {
-    sm: 'px-4 py-2 text-sm',
-    md: 'px-6 py-3 text-base',
-    lg: 'px-8 py-4 text-lg',
+    sm: 'px-4 py-2 text-[10px]',
+    md: 'px-6 py-3 text-xs',
+    lg: 'px-8 py-4 text-sm',
   };
 
   const variants = {
-    primary: 'bg-primary/20',
-    secondary: 'bg-white/10 dark:bg-white/5',
-    ghost: 'bg-transparent',
+    primary: 'bg-[#D4AF37]/10 text-[#D4AF37]',
+    secondary: 'bg-[#16161E] text-white/70 hover:text-white',
+    ghost: 'bg-transparent text-[#888888] hover:text-[#D4AF37]',
   };
 
   return (
     <motion.button
       className={cn(
-        'relative rounded-xl overflow-hidden',
-        'backdrop-blur-xl backdrop-saturate-[var(--backdrop-saturate)]',
-        'border border-gray-700/30 dark:border-white/10',
-        'shadow-lg shadow-blue-500/10',
-        // Slower, smoother transitions
-        'transition-all duration-500 ease-out',
-        'hover:shadow-xl hover:shadow-blue-500/20',
-        'hover:border-blue-400/40',
+        'relative rounded-none overflow-hidden font-label uppercase tracking-[0.2em]',
+        'border border-white/5',
+        'transition-all duration-300 ease-out',
+        'hover:shadow-[0_0_15px_rgba(212,175,55,0.15)]',
+        'hover:border-[#D4AF37]/30',
         'active:scale-[0.98]',
         'group',
         sizes[size],
         variants[variant],
         className,
       )}
-      // Subtle scale on hover
-      whileHover={{scale: 1.02, transition: {duration: 0.4, ease: 'easeOut'}}}
+      whileHover={{scale: 1.02, transition: {duration: 0.3, ease: 'easeOut'}}}
       whileTap={{scale: 0.98, transition: {duration: 0.1}}}
       {...props}>
-      {/* Solid overlay on hover */}
-      <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out">
-        <span className="absolute inset-0 bg-primary/10" />
+      <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+        <span className="absolute inset-0 bg-[#D4AF37]/5" />
       </span>
-
-      {/* Soft glow effect */}
-      <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl bg-blue-400/20 -z-10" />
-
       <span className="relative z-10">{children}</span>
     </motion.button>
   );

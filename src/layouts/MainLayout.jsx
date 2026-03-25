@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 import {useLocation} from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import {TimelineRuler} from '../components/features/TimelineRuler';
+
 
 const MainLayout = ({children, theme}) => {
   const location = useLocation();
-  const shouldShowSidebar = location.pathname === '/';
+
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -17,7 +17,7 @@ const MainLayout = ({children, theme}) => {
         Skip to main content
       </a>
       <Header theme={theme} />
-      {shouldShowSidebar && <TimelineRuler />}
+
       <main id="main-content" className="flex-1 relative" tabIndex={-1}>
         {children}
       </main>

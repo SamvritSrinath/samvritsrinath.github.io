@@ -4,7 +4,7 @@ import {cn} from '@/lib/utils';
 import Contact from '../pages/Contact';
 
 const Footer = () => {
-  const {email, phone, linkedin, github} = resumeData.main.contact;
+  const {email, linkedin, github} = resumeData.main.contact;
 
   // Google Drive resume link - update this with your actual Drive shareable link
   const resumeLink =
@@ -45,13 +45,6 @@ const Footer = () => {
               aria-label="Email">
               <FaEnvelope className="h-5 w-5" />
               <span className="hidden sm:inline">{email}</span>
-            </a>
-            <a
-              href={`tel:${phone}`}
-              className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2"
-              aria-label="Phone">
-              <FaPhone className="h-5 w-5" />
-              <span className="hidden sm:inline">{phone}</span>
             </a>
           </div>
 

@@ -6,11 +6,9 @@ export const GlassSection = ({children, className, ...props}) => {
     <section
       className={cn(
         'py-16 px-4 sm:px-6 lg:px-8',
-        'glass-morphism',
-        'rounded-3xl',
-        'border border-gray-700/30 dark:border-white/10',
-        'shadow-glass-lg',
-        'backdrop-saturate-[var(--backdrop-saturate)]',
+        'bg-[#16161E]/30',
+        'rounded-none',
+        'border border-white/5',
         className,
       )}
       {...props}>

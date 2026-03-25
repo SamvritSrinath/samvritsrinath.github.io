@@ -3,14 +3,13 @@ import {useState, useEffect} from 'react';
 import {Link} from 'react-scroll';
 import {Link as RouterLink, useLocation} from 'react-router-dom';
 import {FaBars, FaTimes} from 'react-icons/fa';
-import {FolderOpen, FileText, FlaskConical} from 'lucide-react';
+import {FolderOpen, FileText, FlaskConical, GraduationCap} from 'lucide-react';
 import {cn} from '@/lib/utils';
 
 const navItems = [
   {id: 'experience', label: 'Experience'},
   {id: 'featured-works', label: 'Featured Works'},
   {id: 'research', label: 'Published Research'},
-  {id: 'ucsd', label: '@ UCSD'},
   {id: 'contact', label: 'Contact'},
 ];
 
@@ -107,56 +106,44 @@ const Header = ({theme}) => {
             <nav className="hidden md:flex items-center gap-6">
               {isHome ? (
                 <>
-                  {navItems.map(item => (
-                    <Link
-                      key={item.id}
-                      to={item.id}
-                      activeClass="active"
-                      {...scrollProps}
-                      className={cn(
-                        'relative text-sm font-medium transition-colors',
-                        'hover:text-primary',
-                        'after:absolute after:bottom-0 after:left-0',
-                        'after:h-0.5 after:w-0 after:bg-primary',
-                        'after:transition-all after:duration-300',
-                        activeSection === item.id &&
-                          'text-primary after:w-full',
-                        'hover:after:w-full',
-                      )}>
-                      {item.label}
-                    </Link>
-                  ))}
-
-                  {/* Separator */}
-                  <div className="w-px h-6 bg-blue-400/30" />
+                  {/* Removed top nav items here, moved to vertical sidebar */}
 
                   {/* External links with icons */}
                   <div className="flex items-center gap-2">
                     <RouterLink
                       to="/research"
-                      className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 dark:bg-black/20 dark:hover:bg-black/30 border border-transparent hover:border-blue-400/30 transition-all duration-500"
+                      className="group flex items-center gap-2 px-4 py-2 rounded-sm bg-white/5 hover:bg-white/10 border border-transparent hover:border-[#D4AF37]/30 transition-all duration-300"
                       aria-label="View Research Projects">
-                      <FlaskConical className="w-4 h-4 text-blue-500 group-hover:text-blue-400 transition-colors duration-300" />
+                      <FlaskConical className="w-4 h-4 text-[#F472B6] group-hover:text-[#F472B6]/80 transition-colors duration-300" />
                       <span className="text-sm font-medium hidden md:inline">
                         Research
                       </span>
                     </RouterLink>
                     <RouterLink
                       to="/projects"
-                      className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 dark:bg-black/20 dark:hover:bg-black/30 border border-transparent hover:border-blue-400/30 transition-all duration-500"
+                      className="group flex items-center gap-2 px-4 py-2 rounded-sm bg-white/5 hover:bg-white/10 border border-transparent hover:border-[#D4AF37]/30 transition-all duration-300"
                       aria-label="View All Projects">
-                      <FolderOpen className="w-4 h-4 text-blue-500 group-hover:text-blue-400 transition-colors duration-300" />
+                      <FolderOpen className="w-4 h-4 text-[#2DD4BF] group-hover:text-[#2DD4BF]/80 transition-colors duration-300" />
                       <span className="text-sm font-medium hidden md:inline">
                         Projects
+                      </span>
+                    </RouterLink>
+                    <RouterLink
+                      to="/ucsd"
+                      className="group flex items-center gap-2 px-4 py-2 rounded-sm bg-white/5 hover:bg-white/10 border border-transparent hover:border-[#D4AF37]/30 transition-all duration-300"
+                      aria-label="View UCSD Page">
+                      <GraduationCap className="w-4 h-4 text-[#D4AF37] group-hover:text-[#D4AF37]/80 transition-colors duration-300" />
+                      <span className="text-sm font-medium hidden md:inline">
+                        @ UCSD
                       </span>
                     </RouterLink>
                     <a
                       href={resumeLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 dark:bg-black/20 dark:hover:bg-black/30 border border-transparent hover:border-blue-400/30 transition-all duration-500"
+                      className="group flex items-center gap-2 px-4 py-2 rounded-sm bg-white/5 hover:bg-white/10 border border-transparent hover:border-[#D4AF37]/30 transition-all duration-300"
                       aria-label="Download Resume">
-                      <FileText className="w-4 h-4 text-blue-500 group-hover:text-blue-400 transition-colors duration-300" />
+                      <FileText className="w-4 h-4 text-[#94A3B8] group-hover:text-white transition-colors duration-300" />
                       <span className="text-sm font-medium hidden md:inline">
                         Resume
                       </span>
@@ -189,6 +176,16 @@ const Header = ({theme}) => {
                         : 'hover:text-primary',
                     )}>
                     Research
+                  </RouterLink>
+                  <RouterLink
+                    to="/ucsd"
+                    className={cn(
+                      'text-sm font-medium transition-colors',
+                      location.pathname === '/ucsd'
+                        ? 'text-primary'
+                        : 'hover:text-primary',
+                    )}>
+                    @ UCSD
                   </RouterLink>
                 </>
               )}
@@ -227,16 +224,7 @@ const Header = ({theme}) => {
           <div className="flex flex-col items-center justify-center h-full gap-6">
             {isHome ? (
               <>
-                {navItems.map(item => (
-                  <Link
-                    key={item.id}
-                    to={item.id}
-                    onClick={closeMobileMenu}
-                    {...scrollProps}
-                    className="text-xl font-medium hover:text-primary transition-colors">
-                    {item.label}
-                  </Link>
-                ))}
+                {/* Removed mobile nav items here */}
                 <RouterLink
                   to="/research"
                   onClick={closeMobileMenu}
@@ -294,6 +282,31 @@ const Header = ({theme}) => {
               </>
             )}
           </div>
+        </div>
+      )}
+      {/* Right Sidebar for Navigation instead of top nav */}
+      {isHome && (
+        <div className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col items-center gap-12 font-label text-[10px] tracking-[0.2em] text-[#888888] uppercase">
+          {navItems.map((item) => (
+            <div key={item.id} className="relative group flex items-center">
+              <Link
+                to={item.id}
+                spy={true}
+                smooth={true}
+                offset={-70}
+                duration={500}
+                className={cn(
+                  'cursor-pointer transition-colors [writing-mode:vertical-rl] rotate-180 hover:text-[#D4AF37]',
+                  activeSection === item.id && 'text-[#D4AF37] font-bold'
+                )}
+              >
+                {item.label}
+              </Link>
+              {activeSection === item.id && (
+                <div className="absolute right-[-16px] top-1/2 -translate-y-1/2 w-[2px] h-8 bg-[#D4AF37] shadow-[0_0_8px_rgba(212,175,55,0.8)]" />
+              )}
+            </div>
+          ))}
         </div>
       )}
     </>

@@ -23,21 +23,29 @@ const categorizeProjects = projects => {
   };
 
   projects.forEach(project => {
+    // Priority 1: Use explicit category mapping if available
+    if (project.category) {
+      const cat = project.category;
+      if (cat === 'Systems' || cat === 'Graphics') {
+        categories['Systems'].push(project);
+        return;
+      }
+      if (cat === 'AI/ML' || cat === 'Research') {
+        categories['AI + ML'].push(project);
+        return;
+      }
+      if (cat === 'Full Stack' || cat === 'Club' || cat === 'Personal') {
+        categories['Full Stack'].push(project);
+        return;
+      }
+    }
+
+    // Priority 2: Fallback to keyword matching (original logic for robustness)
     const title = project.title.toLowerCase();
     const tech = project.technologies.map(t => t.toLowerCase()).join(' ');
-    const desc = project.description.toLowerCase();
 
-    // AI + ML projects
     if (
       title.includes('llm') ||
-      title.includes('honey') ||
-      title.includes('ip-sage') ||
-      title.includes('parkinson') ||
-      title.includes('sentiment') ||
-      title.includes('bert') ||
-      title.includes('machine learning') ||
-      title.includes('cs1-llm') ||
-      tech.includes('llm') ||
       tech.includes('pytorch') ||
       tech.includes('tensorflow') ||
       tech.includes('scikit-learn') ||
@@ -45,26 +53,14 @@ const categorizeProjects = projects => {
       tech.includes('claude')
     ) {
       categories['AI + ML'].push(project);
-    }
-    // Systems projects
-    else if (
+    } else if (
+      project.category === 'Systems' ||
       title.includes('gpu') ||
-      title.includes('megakernel') ||
-      title.includes('cuda') ||
-      title.includes('thunderkittens') ||
-      title.includes('country-in-the-middle') ||
-      title.includes('country in the middle') ||
       tech.includes('cuda') ||
-      tech.includes('c++') ||
-      desc.includes('gpu') ||
-      desc.includes('kernel') ||
-      desc.includes('network paths') ||
-      desc.includes('internet measurement')
+      tech.includes('c++')
     ) {
       categories['Systems'].push(project);
-    }
-    // Full Stack projects
-    else {
+    } else {
       categories['Full Stack'].push(project);
     }
   });

@@ -5,7 +5,6 @@ export const resumeData = {
     bio: 'Driven and passionate Computer Science student at UC San Diego with a focus on systems, networking, and machine learning. Experienced in developing scalable software solutions for Networked Systems and conducting cutting-edge research in Security. Actively seeking opportunities to tackle challenging problems and contribute to innovative projects.',
     contact: {
       email: 'sasrinath@ucsd.edu',
-      phone: '628-232-1824',
       linkedin: 'https://linkedin.com/in/samvrit-srinath',
       github: 'https://github.com/SamvritSrinath',
     },
@@ -15,7 +14,7 @@ export const resumeData = {
       university: 'University of California, San Diego',
       degree: 'B.S./M.S. in Computer Science',
       duration: 'September 2022 – June 2026',
-      details: 'Regents Scholar (Top 1% of incoming freshman), GPA: 3.97/4.00',
+      details: 'Regents Scholar (Top 1% of incoming freshman)',
       courses: [
         'Advanced Data Structures',
         'Algorithmic Design',
@@ -41,15 +40,21 @@ export const resumeData = {
       logo: '/assets/companies/Arista.png',
       roles: [
         {
+          role: 'Incoming Software Engineer',
+          duration: 'June 2026 – Present',
+          description: [],
+          technologies: ['Python', 'C++'],
+        },
+        {
           role: 'Platform SWE Intern (Co-op)',
           duration: 'March 2025 – September 2025',
           description: [
-            "Architected and developed core software components for next-generation Ethernet switches featuring advanced PHYs and loopback capabilities, contributing to Arista's cutting-edge switching portfolio.",
-            'Built comprehensive switch modeling framework translating hardware register specifications into traffic forwarding behaviors, enabling accurate simulation and validation of network operations.',
-            'Built the first gRPC-based device communication framework in my organization from scratch, creating the complete pipeline from diagnostic clients to infrastructure server endpoints and enabling validation support across multiple hardware platforms. with 12 APIs across 3 databases and 8 platforms, streamlining validation workflows for distributed switch environments.',
-            'Optimized board autodetection algorithms, achieving 96% reduction in hardware lookup time and significantly improving system initialization performance.',
-            'Developed custom Linux SMBus middleware for I2C hardware transactions, ensuring reliable register-level communication and hardware access across switch platforms.',
-            'Created multi-platform testing framework with multiprocessing support for switch wiring simulation, covering all Arista switch models and accelerating CI pipeline execution.',
+            'Architected core software for next-gen Arista Ethernet switches with advanced PHY and loopback support.',
+            'Built a switch modeling framework translating hardware register specs into traffic forwarding behaviors for simulation and validation.',
+            'Designed a gRPC device communication framework from scratch — 12 APIs across 3 databases and 8 platforms — streamlining distributed switch validation.',
+            'Optimized board autodetection, achieving a 96% reduction in hardware lookup time.',
+            'Developed Linux SMBus middleware for I2C transactions ensuring reliable register-level access across switch platforms.',
+            'Built a multiprocessing test framework for switch wiring simulation covering all Arista models.',
           ],
           technologies: ['Python', 'Go', 'gRPC', 'C', 'Linux'],
         },
@@ -57,9 +62,9 @@ export const resumeData = {
           role: 'Software Engineer Intern',
           duration: 'Jun 2024 – Sep 2024',
           description: [
-            'Developed diagnostic software for high-speed Ethernet switches, enhancing regression efficiency by 15% through modularized and enhanced diagnostic shells.',
-            "Created comprehensive performance tests for Arista's proprietary ASICs and switches, focusing on packet integrity and PRBS testing to ensure hardware quality.",
-            'Built Python diagnostics for PCIe Linkup and ASIC resets, streamlining hardware initialization and reducing boot-up time.',
+            'Improved regression efficiency 15% via modularized diagnostic shells for high-speed Ethernet switches.',
+            'Created performance tests for proprietary Arista ASICs focused on packet integrity and PRBS validation.',
+            'Built Python diagnostics for PCIe Linkup and ASIC resets, reducing boot-up time.',
           ],
           technologies: ['Python', 'C++', 'C'],
         },
@@ -73,10 +78,10 @@ export const resumeData = {
           role: 'Software Engineering Intern',
           duration: 'Jul 2023 – Apr 2024',
           description: [
-            'Created a live Full-Stack Application using Java and JSP used by 40K users to alter and display names on websites and official documents',
-            'Validated Performance and Integration of APIs across 5+ databases using SQL and Postman',
-            'Emulated user behavior using Playwright to automate QA, reducing manual testing time by 30%',
-            'Implemented a scalable REST API solution used in 6 applications for CRUD Operations and SSO on Student Databases',
+            'Built a live Full-Stack Java/JSP application used by 40K+ users to manage names across websites and official documents.',
+            'Validated API performance and integration across 5+ databases using SQL and Postman.',
+            'Automated QA with Playwright, reducing manual testing time by 30%.',
+            'Implemented a scalable REST API used across 6 applications for CRUD operations and SSO on student databases.',
           ],
           technologies: ['Java', 'JSP', 'SQL', 'Postman', 'Playwright'],
         },
@@ -114,6 +119,56 @@ export const resumeData = {
       category: 'Research',
     },
     {
+      title: 'SpecSplit',
+      description:
+        'A disaggregated speculative decoding framework that separates draft and target LLM inference across networked GPU nodes using gRPC, enabling speculative decoding without co-locating models. Built with Llama 3.1 8B (draft) and 70B (target) on NVIDIA DGX Spark, achieving 75% token acceptance at γ=1 and up to 2 tok/s throughput with <0.1% network overhead. Features tree-structured draft speculation, KV cache management, and a comprehensive benchmark suite.',
+      technologies: [
+        'Python',
+        'PyTorch',
+        'gRPC',
+        'CUDA',
+        'Hugging Face',
+        'NVIDIA DGX',
+      ],
+      link: 'https://github.com/SamvritSrinath/SpecSplit',
+      paper: '/assets/papers/SpecSplit.pdf',
+      images: [
+        '/assets/projects/specsplit/dashboard.png',
+        '/assets/projects/specsplit/acceptance_heatmap.png',
+        '/assets/projects/specsplit/tpot_vs_gamma.png',
+        '/assets/projects/specsplit/tokens_per_second_by_prompt.png',
+        '/assets/projects/specsplit/architecture.svg',
+        '/assets/projects/specsplit/network_overhead.png',
+      ],
+      featured: true,
+      category: 'Systems',
+    },
+    {
+      title: 'OptFantasy',
+      description:
+        'A convex quadratic optimization framework for weekly fantasy football lineup selection. Formulates the problem as an MIQCP with player covariance modeling for variance-aware roster construction. Compares six methods — MILP, LP Rounding, ADP Heuristic, McCormick linearization, QCP, and baselines — across the full 2024 NFL season, with the ADP heuristic achieving the best out-of-sample score of 2,089 points while solving in under 0.1 seconds.',
+      technologies: [
+        'Python',
+        'Gurobi',
+        'Pandas',
+        'NumPy',
+        'Matplotlib',
+        'Optimization',
+      ],
+      link: 'https://github.com/SamvritSrinath/OptFantasy',
+      paper: '/assets/papers/OptFantasy.pdf',
+      images: [
+        '/assets/projects/optfantasy/method_cumulative_trajectory.png',
+        '/assets/projects/optfantasy/weekly_score_trajectories.png',
+        '/assets/projects/optfantasy/integrality_gap.png',
+        '/assets/projects/optfantasy/method_score_comparison.png',
+        '/assets/projects/optfantasy/player_value_frontier.png',
+        '/assets/projects/optfantasy/runtime_vs_score.png',
+      ],
+      featured: true,
+      category: 'AI/ML',
+    },
+    {
       title: 'LomaVerse',
       description:
         'A differentiable N-body gravitational simulator built in the Loma programming language. By leveraging automatic differentiation, it derives equations of motion from a Hamiltonian formulation, enabling a physics-driven approach to simulating celestial mechanics. The project supports multiple numerical integrators and is validated through modeling diverse celestial configurations, from stable solar systems to Lagrange points.',
@@ -129,7 +184,7 @@ export const resumeData = {
         '/assets/projects/lomaverse/Chaos2D.jpg',
       ],
       featured: true,
-      category: 'Personal',
+      category: 'Graphics',
     },
     {
       title: 'Country-in-the-Middle',
@@ -191,7 +246,7 @@ export const resumeData = {
       ],
       video: null, // Add video URL when available
       featured: true,
-      category: 'Personal',
+      category: 'Systems',
     },
     {
       title: 'GPU Megakernels: Optimizing LLM Performance',
@@ -211,8 +266,7 @@ export const resumeData = {
         '/assets/projects/gpu-kernels/MatrixMult.jpg',
         '/assets/projects/gpu-kernels/ProcessorPipeline.jpg',
       ],
-      video: null, // Add video URL when available
-      featured: true,
+      featured: false,
       category: 'Research',
     },
     {
@@ -242,7 +296,7 @@ export const resumeData = {
         '/assets/projects/psyches-of-color/psyches-of-color-3.jpg',
         '/assets/projects/psyches-of-color/psyches-of-color-4.jpg',
       ],
-      featured: true,
+      featured: false,
       category: 'Club',
     },
     {

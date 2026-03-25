@@ -107,19 +107,19 @@ export default {
         '3xl': '64px',
         '4xl': '128px',
       },
-      // Blue nebula gradients
+      // Stellar Archivist gradients
       backgroundImage: {
-        'glass-gradient': 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)',
-        'glass-light': 'linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.2) 100%)',
-        'glass-dark': 'linear-gradient(135deg, rgba(15,30,60,0.3) 0%, rgba(15,30,60,0.1) 100%)',
-        'nebula-radial': 'radial-gradient(circle at 30% 30%, rgba(56, 189, 248, 0.15), transparent 60%)',
-        'nebula-radial-dark': 'radial-gradient(circle at 30% 30%, rgba(14, 165, 233, 0.2), transparent 60%)',
-        'aurora-blue': 'linear-gradient(90deg, #06b6d4, #3b82f6, #6366f1)',
-        'cosmic-flow-light': 'linear-gradient(135deg, #38bdf8 0%, #3b82f6 50%, #6366f1 100%)',
-        'cosmic-flow-dark': 'linear-gradient(135deg, #0ea5e9 0%, #2563eb 50%, #4f46e5 100%)',
-        // Legacy support
-        'cosmic-flow': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        'aurora-flow': 'linear-gradient(90deg, #06b6d4, #3b82f6, #6366f1)',
+        'glass-gradient': 'none',
+        'glass-light': 'none',
+        'glass-dark': 'none',
+        'nebula-radial': 'radial-gradient(circle at 30% 30%, rgba(212, 175, 55, 0.15), transparent 60%)',
+        'nebula-radial-dark': 'radial-gradient(circle at 30% 30%, rgba(212, 175, 55, 0.2), transparent 60%)',
+        'aurora-blue': 'linear-gradient(90deg, #D4AF37, #FFD700, #B5A642)',
+        'cosmic-flow-light': 'linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #B5A642 100%)',
+        'cosmic-flow-dark': 'linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #B5A642 100%)',
+        // Legacy support mapping to gold
+        'cosmic-flow': 'linear-gradient(135deg, #D4AF37 0%, #B5A642 100%)',
+        'aurora-flow': 'linear-gradient(90deg, #D4AF37, #FFD700, #B5A642)',
       },
       // Animation presets
       animation: {
@@ -161,34 +161,35 @@ export default {
       spacing: {
         'glass': '1px',
       },
-      // Shadow system for glass depth
+      // Shadow system for Stellar Archivist
       boxShadow: {
-        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.12)',
-        'glass-lg': '0 16px 48px 0 rgba(0, 0, 0, 0.16)',
-        'glass-inner': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.1)',
-        'glass-light': '0 8px 32px 0 rgba(56, 189, 248, 0.1)',
-        'glass-dark': '0 8px 32px 0 rgba(14, 165, 233, 0.2)',
-        'glow-cyan': '0 0 30px rgba(6, 182, 212, 0.4)',
-        'glow-blue': '0 0 30px rgba(59, 130, 246, 0.4)',
-        'glow-indigo': '0 0 30px rgba(99, 102, 241, 0.4)',
+        'glass': 'none',
+        'glass-lg': 'none',
+        'glass-inner': 'none',
+        'glass-light': 'none',
+        'glass-dark': 'none',
+        'glow-cyan': '0 0 15px rgba(212, 175, 55, 0.4)',
+        'glow-blue': '0 0 15px rgba(212, 175, 55, 0.4)',
+        'glow-indigo': '0 0 15px rgba(255, 215, 0, 0.4)',
+        // Stellar glows
+        'glow-gold': '0 0 15px rgba(212, 175, 55, 0.2)',
+        'glow-gold-strong': '0 0 25px rgba(212, 175, 55, 0.4)',
         // Legacy support
-        'glow-purple': '0 0 20px rgba(168, 85, 247, 0.3)',
+        'glow-purple': '0 0 15px rgba(212, 175, 55, 0.3)',
       },
     },
   },
   plugins: [
-    // Custom glass utilities plugin
+    // Flat archival utilities plugin (replaced glass)
     plugin(function({ addUtilities }) {
       addUtilities({
         '.glass-card': {
-          'background': 'rgba(255, 255, 255, 0.05)',
-          'backdrop-filter': 'blur(16px) saturate(150%)',
-          'border': '1px solid rgba(255, 255, 255, 0.1)',
+          'background': 'hsl(var(--background))',
+          'border': '1px solid rgba(255, 255, 255, 0.05)',
         },
         '.glass-morphism': {
-          'background': 'linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))',
-          'backdrop-filter': 'blur(24px) saturate(180%)',
-          'box-shadow': '0 8px 32px 0 rgba(0, 0, 0, 0.12)',
+          'background': 'hsl(var(--background))',
+          'border': '1px solid rgba(255, 255, 255, 0.05)',
         },
       });
     }),

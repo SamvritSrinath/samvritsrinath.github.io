@@ -26,7 +26,7 @@ const PublishedResearch = lazy(() =>
 const Skills = lazy(() => import('./components/Skills'));
 const UCSD = lazy(() => import('./components/UCSD'));
 const ResearchPage = lazy(() => import('./pages/ResearchPage'));
-const UCSDPage = lazy(() => import('./pages/UCSDPage'));
+// const UCSDPage = lazy(() => import('./pages/UCSDPage'));
 
 function App() {
   const {theme} = useTheme();

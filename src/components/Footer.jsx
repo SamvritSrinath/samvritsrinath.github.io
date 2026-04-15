@@ -1,4 +1,4 @@
-import {FaLinkedin, FaGithub, FaEnvelope, FaPhone} from 'react-icons/fa';
+import {FaLinkedin, FaGithub, FaEnvelope} from 'react-icons/fa';
 import {resumeData} from '../data/resumeData';
 import {cn} from '@/lib/utils';
 import Contact from '../pages/Contact';

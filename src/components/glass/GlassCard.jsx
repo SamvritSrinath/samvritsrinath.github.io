@@ -11,7 +11,7 @@ const borderVariantsMap = {
 
 export const GlassCard = ({
   children,
-  variant = 'default',
+  // variant = 'default',
   border = 'default',
   hover = true,
   className,
